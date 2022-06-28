@@ -58,6 +58,7 @@ Route::post('update/region/{id}','GroupController@updateregion')->name('updatere
 
 Route::get('get/regiondetails/{id}','GroupController@getregiondetails')->name('getregiondetails');
 
+Route::get('delete/region/{id}','GroupController@deleteRegion')->name('admin.deleteRegion');
 
 
 ////////////////////////////////////////الفترات////////////////////////
@@ -203,9 +204,99 @@ Route::get('get/driver-order','DriverController@getdriverorder')->name('getdrive
 
 Route::get('get/operation','OperationController@getoperation')->name('getoperation');
 
+Route::get('search/operation','OperationController@searcbymobile')->name('searcbymobile');
+
+
+Route::get('delete/order','OperationController@deleteorder')->name('deleteorder');
+
+Route::get('show/order','OperationController@showorder')->name('showorder');
+
+
+Route::get('getsubcarbymaincar','OperationController@getsubcarbymaincar')->name('getsubcarbymaincar');
+
+Route::post('updateorderbyadmin','OperationController@updateorderbyadmin')->name('updateorderbyadmin');
+
+Route::get('changedriver','OperationController@changedriver')->name('changedriver');
+/////////////////////////////////////////////////clients //////////////////////////////////////////////////
+
+
+Route::get('get/clients','ClientController@getClients')->name('admin.get.clients');
+
+Route::get('client/profile/{id}','ClientController@profile')->name('admin.client.profile');
+
+Route::get('client/profile/filter/{id}','ClientController@filterProfileByDate')->name('admin.client.profile.filter.date');
+
+Route::get('changeVip','ClientController@changeVip')->name('admin.client.change.vip');
+
+Route::get('changeActive','ClientController@changeActive')->name('admin.client.change.active');
+
+Route::get('change/vip/discount','ClientController@changeVipDiscount')->name('admin.change.vipDiscount');
+
+Route::get('git/clients/{key}','ClientController@getClientsByFilter')->name('admin.getClientsByFilter');
+
+Route::get('client/search/phone','ClientController@searchByMobile')->name('admin.search.client.mobile');
+
+Route::get('client/search/places','ClientController@searchByPlace')->name('admin.search.client.place');
+
+Route::get('client/search/date','ClientController@searchByDate')->name('admin.search.client.date');
+
+Route::get('client/search/countOrder','ClientController@searchByCountOrder')->name('admin.search.client.count.order');
+
+Route::get('client/search/service','ClientController@searchByService')->name('admin.search.client.service');
+
+Route::get('export/users/excel','ExportController@exportUsers')->name('admin.export.user');
+
+Route::get('client/search/payment','ClientController@clientSearchByPayment')->name('admin.client.search.payment');
+
+Route::get('add/client/balance','ClientController@addBalanceToClient')->name('admin.client.add.balance');
+
+Route::get('change/percentage','ClientController@changePercentage')->name('admin.client.change.percentage');
 
 
 
+/////////////////////////////////////////////    المشتريات   //////////////////////////////////////////////////////
+
+Route::get('get/purchase','PurchaseController@index')->name('admin.purchase.index');
+
+Route::get('delete/purchase','PurchaseController@delete')->name('admin.purchase.delete');
+
+Route::get('create/purchase','PurchaseController@create')->name('admin.purchase.create');
+Route::post('add/purchase','PurchaseController@add')->name('admin.purchase.add');
+
+Route::get('edit/purchase/{id}','PurchaseController@edit')->name('admin.purchase.edit');
+Route::post('update/purchase/{id}','PurchaseController@update')->name('admin.purchase.update');
+
+Route::get('export/purchases/excel','ExportController@exportPurchases')->name('admin.export.purchase');
+
+////////////////////////////////////  CAR_PERFORMANCE    /////////////////////////////////////////////////
+
+
+
+Route::get('get/carPerformance','CarPerformanceController@index')->name('admin.carPerformance.index');
+
+Route::get('carPerformance/searchByMobile/SearchByOrderNumber/{search}','CarPerformanceController@search')->name('admin.carPerformance.search');
+
+Route::get('carPerformance/searchByDate/{date}','CarPerformanceController@searchByDate')->name('admin.carPerformance.searchByDate');
+
+Route::get('carPerformance/searchByCar/{car}','CarPerformanceController@searchByCar')->name('admin.carPerformance.searchByCar');
+
+Route::get('export/CarPerformance/excel','ExportController@exportCarPerformance')->name('admin.export.CarPerformance');
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+Route::get('get/app/status','AppStatusController@index')->name('admin.appStatus');
+
+Route::get('get/app/searchByDate/{date}','AppStatusController@filterByDate')->name('admin.app.filter.date');
+
+Route::get('get/app/searchByMobile/{search}','AppStatusController@filterBySearch')->name('admin.app.filter.search');
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+Route::get('get/car/revenue','RevenueController@index')->name('admin.cars.revenue');
+
+Route::get('car/revenue/filterByCar/{car}','RevenueController@searchByCar')->name('admin.revenue.search.car');
 
 
 

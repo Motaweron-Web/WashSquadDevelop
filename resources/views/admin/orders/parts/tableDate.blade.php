@@ -27,7 +27,7 @@
         <td>{{$order->service_basic->ar_title??''}}</td>
         <td>{{$order->service_basic->ar_title??''}}</td>
         <td>{{$firstSubServiceTitle}}</td>
-        <td> {{$order->place->title_ar??''}}</td>
+        <td> {{$order->place->ar_name??''}}</td>
         <td>{{$order->user->full_name??''}}</td>
 
         <td> {{$order->user->phone_code??''}}{{$order->user->phone??''}}</td>

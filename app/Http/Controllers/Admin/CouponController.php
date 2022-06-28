@@ -17,7 +17,7 @@ class CouponController extends Controller
 {
     public function getcoupons()
     {
-        $coupons=Coupon::with('payments')->get();
+        $coupons=Coupon::with('payments')->paginate(15);
 
 
         return view('admin.home.coupons.index',compact('coupons'));
@@ -116,6 +116,6 @@ class CouponController extends Controller
             CouponPaymente::where('coupon_id',$coupon->id)->delete();
 
         }
-     return redirect()->route('getcoupons');
+     return redirect()->route('getcoupons')->with('message','تم التعديل بنجاح');
     }
 }

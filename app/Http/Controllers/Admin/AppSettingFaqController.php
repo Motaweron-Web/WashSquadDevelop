@@ -34,13 +34,11 @@ class AppSettingFaqController extends Controller
         // return $request ;
         try {
 
-
-
             $AppSettingFaqs = Question::create([
-                'en_title' => $request->en_title,
-                'ar_title' => $request->ar_title,
-                'ar_content' => $request->ar_content,
-                'en_content' => $request->en_content,
+                'en_title' => $request-> en_title,
+                'ar_title' => $request-> ar_title,
+                'ar_content' => $request-> ar_content,
+                'en_content' => $request-> en_content,
 
             ]);
 

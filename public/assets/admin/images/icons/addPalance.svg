@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32.514" height="32.953" viewBox="0 0 32.514 32.953">
+  <g id="Group_1071" data-name="Group 1071" transform="translate(-345.792 -676.392)">
+    <g id="baseline-account_balance_wallet-24px" transform="translate(345.792 676.392)">
+      <path id="Path_249" data-name="Path 249" d="M0,0H32.514V32.514H0Z" fill="none"/>
+      <path id="Path_250" data-name="Path 250" d="M27.385,23.321v1.355a2.717,2.717,0,0,1-2.709,2.709H5.709A2.709,2.709,0,0,1,3,24.676V5.709A2.709,2.709,0,0,1,5.709,3H24.676a2.717,2.717,0,0,1,2.709,2.709V7.064H15.193a2.709,2.709,0,0,0-2.709,2.709V20.612a2.709,2.709,0,0,0,2.709,2.709ZM15.193,20.612H28.74V9.774H15.193Zm5.419-3.387a2.032,2.032,0,1,1,2.032-2.032A2.029,2.029,0,0,1,20.612,17.225Z" transform="translate(1.064 1.064)" fill="#450038"/>
+    </g>
+    <g id="baseline-add_circle-24px" transform="translate(345.792 692.812)">
+      <path id="Path_15" data-name="Path 15" d="M0,0H16.533V16.533H0Z" transform="translate(0 0)" fill="none"/>
+      <path id="Path_16" data-name="Path 16" d="M8.889,2a6.889,6.889,0,1,0,6.889,6.889A6.891,6.891,0,0,0,8.889,2Zm3.444,7.577H9.577v2.755H8.2V9.577H5.444V8.2H8.2V5.444H9.577V8.2h2.755Z" transform="translate(-0.622 -0.623)" fill="#4f986e"/>
+    </g>
+  </g>
+</svg>

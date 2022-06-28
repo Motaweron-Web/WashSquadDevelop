@@ -11,7 +11,7 @@ class CarController extends Controller
 {
     //
     public  function getcartype(){
-         $cartypes=CarType::where('level',1)->get();
+         $cartypes=CarType::where('level',1)->paginate(15);
         return view('admin.home.car.main',compact('cartypes'));
     }
     public function createmaincar()
@@ -38,7 +38,7 @@ class CarController extends Controller
             'parent_id'=>0,
             'size'=>0
         ]);
-        return redirect()->route('getcartype');
+        return redirect()->route('getcartype')->with('message','تمة الاضافة بنجاح');
     }
     public function editmaincar($id){
         $car=CarType::find($id);
@@ -63,7 +63,7 @@ class CarController extends Controller
             'ar_title'=>$request->ar_title,
             'en_title'=>$request->en_title,
         ]);
-        return redirect()->route('getcartype');
+        return redirect()->route('getcartype')->with('message','تم التعديل بنجاح');
 
     }
     public function deletemaincar(Request $request){
@@ -78,7 +78,7 @@ class CarController extends Controller
 
 
     public function getsubcartype(){
-        $cartypes=CarType::with('parent')->where('level',2)->get();
+        $cartypes=CarType::with('parent')->where('level',2)->paginate(15);
         return view('admin.home.car.sub.index',compact('cartypes'));
     }
 
@@ -110,7 +110,7 @@ class CarController extends Controller
             'parent_id'=>$request->parent_id,
             'size'=>$request->size
         ]);
-        return redirect()->route('getsubcartype');
+        return redirect()->route('getsubcartype')->with('message','تمة الاضافة بنجاح');
 
     }
   public function  editsubcar($id){
@@ -141,6 +141,6 @@ class CarController extends Controller
           'parent_id'=>$request->parent_id,
           'size'=>$request->size
       ]);
-      return redirect()->route('getsubcartype');
+      return redirect()->route('getsubcartype')->with('message','نم التعديل بنجاح');
   }
 }

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="view_agenda_black_24dp" opacity="0.74">
+    <g id="Group_414" data-name="Group 414">
+      <rect id="Rectangle_158" data-name="Rectangle 158" width="24" height="24" fill="none"/>
+    </g>
+    <g id="Group_416" data-name="Group 416">
+      <g id="Group_415" data-name="Group 415">
+        <path id="Path_252" data-name="Path 252" d="M19,13H5a2.006,2.006,0,0,0-2,2v4a2.006,2.006,0,0,0,2,2H19a2.006,2.006,0,0,0,2-2V15A2.006,2.006,0,0,0,19,13Z" fill="#fff"/>
+        <path id="Path_253" data-name="Path 253" d="M19,3H5A2.006,2.006,0,0,0,3,5V9a2.006,2.006,0,0,0,2,2H19a2.006,2.006,0,0,0,2-2V5A2.006,2.006,0,0,0,19,3Z" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

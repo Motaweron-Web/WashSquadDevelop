@@ -1,5 +1,9 @@
 $(document).ready(function () {
     $("#datatable").DataTable({
+        // "paging":   false,
+        "ordering": false,
+        // "info":     false ,
+        "dom": 'rtip',
         language: {
             paginate: {
                 previous: "<i class='mdi mdi-chevron-right'>",

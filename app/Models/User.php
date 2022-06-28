@@ -30,6 +30,10 @@ class User extends Authenticatable
 
     }//end fun
 
+    public function place(){
+        return $this->belongsTo(Place::class,'place_id');
+    }
+
 
 
     #####################== driver ==###########################
@@ -46,6 +50,7 @@ class User extends Authenticatable
     public  function getLpgoAttribute($val){
         return($val !==null)?asset($val) :"";
     }
+   
 
 
 

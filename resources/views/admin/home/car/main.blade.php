@@ -34,14 +34,56 @@
                     <td>
                         <div class="actionsIcons">
                             <a href="{{route('editmaincar',$car->id)}}" class="edit"> <i class="fas fa-edit"></i> </a>
-                            <a carid="{{$car->id}}" href="" class="delete deletecar"> <i class="fas fa-trash-alt"></i> </a>
+                            <a carid="{{$car->id}}" href="" class="delete delete-data"> <i class="fas fa-trash-alt"></i> </a>
                         </div>
                     </td>
                 </tr>
                 @endforeach
+
                 </tbody>
             </table>
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="{{$cartypes->previousPageUrl()}}">Previous</a>
+                    </li>
+                    @for($i=1;$i<=$cartypes->lastPage();$i++)
+                        <li class="page-item"><a class="page-link" href='?page={{$i}}'> {{$i}}</a></li>
+                    @endfor
+                    <li class="page-item ">
+                        <a class="page-link"  href="{{$cartypes->nextPageUrl()}}">Next</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
+
+
+        <div class="modal " id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">حذف بيانات</h5>
+                        <button type="button" class="close toggle-model" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input id="delete_id" name="id" type="hidden">
+                        <p>هل انت متأكد من حذف البيانات التالية <span id="title" class="text-danger"></span>؟</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="close toggle-model btn-primary" data-dismiss="modal" aria-label="Close">
+                            <span >اغلاق</span>
+                        </button>
+                        <button type="button" class="btn btn-danger" id="delete_btn">حذف !</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
     </section>
     <!-- End drivers -->
 
@@ -52,67 +94,44 @@
 
 @section('style')
 
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
-    <!-- jvectormap -->
-    <link href="{{asset('assets/libs/jqvmap/jqvmap.min.css')}}" rel="stylesheet" />
-    <!-- DataTables -->
-    <link href="{{asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css')}}" rel="stylesheet"
-          type="text/css" />
-    <!-- Responsive datatable examples -->
-    <link href="{{asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css')}}" rel="stylesheet"
-          type="text/css" />
-    <!-- Plugins css -->
-    <link href="{{asset('assets/libs/dropzone/min/dropzone.min.css')}}" rel="stylesheet" type="text/css" />
-    <!-- Bootstrap Css -->
-    <link href="{{asset('assets/css/bootstrap-rtl.min.css')}}" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="{{asset('assets/css/app-rtl.min.css')}}" rel="stylesheet" type="text/css" />
 
 @endsection
 
 @section('js')
 
-    <!-- JAVASCRIPT -->
-    <!-- JAVASCRIPT -->
-    <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('assets/libs/metismenu/metisMenu.min.js')}}"></script>
-    <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
-    <script src="{{asset('assets/libs/node-waves/waves.min.js')}}"></script>
-    <script src="{{asset('assets/libs/apexcharts/apexcharts.min.js')}}"></script>
-
-    <script src="{{asset('assets/libs/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-
-    <script src="{{asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
-    <script src="{{asset('assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js')}}"></script>
-    <script src="{{asset('assets/libs/jszip/jszip.min.js')}}"></script>
-    <script src="{{asset('assets/libs/pdfmake/build/pdfmake.min.js')}}"></script>
-    <script src="{{asset('assets/libs/pdfmake/build/vfs_fonts.js')}}"></script>
-    <script src="{{asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
-    <script src="{{asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
-    <script src="{{asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js')}}"></script>
-
-    <script src="{{asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
-    <script src="{{asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
-
-    <script src="{{asset('assets/libs/dropzone/min/dropzone.min.js')}}"></script>
-
-    <script src="{{asset('assets/js/pages/datatables.init.js')}}"></script>
-
-    <script src="{{asset('assets/libs/jqvmap/jquery.vmap.min.js')}}"></script>
-    <script src="{{asset('assets/libs/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
-    <script src="{{asset('assets/js/pages/dashboard.init.js')}}"></script>
-    <script src="{{asset('assets/js/app.js')}}"></script>
 
     <script>
-        $(document).on("click",".deletecar", function (e) {
+
+        @if(session()->has('message'))
+
+        toastr.success('تمت العملية بنجاح');
+        @endif
+
+
+
+        $(document).on("click",".delete-data", function (e) {
             e.preventDefault();
+            $(function () {
+                $('#delete_modal').modal('show');
+            });
             var id= $(this).attr('carid');
+            $('#delete_id').val(id);
+        });
+
+
+
+        $(document).on("click",".toggle-model", function (e) {
+            e.preventDefault();
+            $(function () {
+                $('#delete_modal').modal('toggle');
+            });
+        });
+
+
+        $(document).on("click","#delete_btn", function (e) {
+            e.preventDefault();
+            var id=$('#delete_id').val();
+
             $.ajax({
                 type:'GET',
                 url:"{{route('deletemaincar')}}",
@@ -124,22 +143,42 @@
                     if(res['status']==true)
                     {
 
+                        toastr.success('تمت عملية الحذف بنجاح')
                         $(`#${id}`).remove();
+
+                        $(function () {
+                            $('#delete_modal').modal('toggle');
+                        });
 
                     }
                     else if(res['status']==false)
                         location.reload();
 
                     else
-                        alert('fff');
+                        location.reload();
 
                 },
                 error: function(data){
-                    alert('error');
+                    location.reload();
                 }
             });
 
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </script>
 
 @endsection

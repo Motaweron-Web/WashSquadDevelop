@@ -72,4 +72,13 @@ class Order extends Model
    {
        return $this->belongsTo('App\Models\Admin\User','user_id');
    }
+   public function payment(){
+        return $this->belongsTo('App\Models\Payment','payment_method');
+   }
+   public  function  distributor(){
+        return $this->belongsTo(User::class,'distributor_employee_id');
+   }
+   public function  sub_sub_services(){
+        return $this->belongsToMany(Service::class,'sub_service_orders','order_id','sub_service_id');
+   }
 }//end class

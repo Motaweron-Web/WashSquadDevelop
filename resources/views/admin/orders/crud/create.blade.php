@@ -26,7 +26,7 @@
                     <select class="form-select mo-form-select"  name="place_id" id="">
                         <option value="" selected disabled>الحي</option>
                         @foreach($places as $place)
-                            <option value="{{$place->id}}">{{$place->title_ar}}</option>
+                            <option value="{{$place->id}}">{{$place->ar_name}}</option>
                         @endforeach
                     </select>
                 </div>

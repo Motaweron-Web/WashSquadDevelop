@@ -211,11 +211,11 @@
                 <div class="day-div p-2">
                     <div class=" p-2 pb-4 "> 1 </div>
                     <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
+                        <span class="availableTime"> <img src="{{asset('assets/admin/images/icons/2.png')}}"> غسيل </span>
+                        <span class="unavailableTime"> <img src="{{asset('assets/admin/images/icons/3.png')}}"> تلميع
                                         </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
+                        <span class="scheduling"> <img src="{{asset('assets/admin/images/icons/5.png')}}"> تعقيم </span>
+                        <span class="scheduling"> <img src="{{asset('assets/admin/images/icons/4.png')}}"> اشتراك </span>
                     </div>
                 </div>
             </div>

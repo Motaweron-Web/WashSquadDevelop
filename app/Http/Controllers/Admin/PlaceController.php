@@ -36,7 +36,7 @@ class PlaceController extends Controller
             $place->status=0;
             $place->save();
         }
-        return response()->json(['status'=>true]);
+        return response()->json(['status'=>true,'st'=>$place->status]);
 
     }
     public function editplace($id){
@@ -105,7 +105,7 @@ class PlaceController extends Controller
           ServicePlace::where('place_id',$id)->delete();
         }
 
-   return redirect()->route('getregiondetails',$place->group_id);
+   return redirect()->route('getregiondetails',$place->group_id)->with('message','تم تعديل الحي بنجاح');
     }
 
 
@@ -179,7 +179,7 @@ class PlaceController extends Controller
           ServicePlace::where('place_id',$place->id)->delete();
       }
 
-      return redirect()->route('getregiondetails',$place->group_id);
+      return redirect()->route('getregiondetails',$place->group_id)->with('message','تم اضاقة الحي بنجاح');
 
   }
 

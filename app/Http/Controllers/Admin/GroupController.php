@@ -13,7 +13,7 @@ class GroupController extends Controller
     //
     public  function index(){
        $groups=Group::get();
-       $places=Place::with('group','payments')->get();
+       $places=Place::with('group','payments')->paginate(10);
         return view('admin.home.group.index',compact('groups','places'));
 
 
@@ -27,7 +27,7 @@ class GroupController extends Controller
 
         $validator=\Validator::make($request->all(),
             [
-                'name'=>'required|string',
+                'name'=>'required|string|max:30',
 
 
             ]);
@@ -38,13 +38,13 @@ class GroupController extends Controller
         }
 
         Group::create(['name'=>$request->name]);
-        return redirect()->route('groups.index');
-
+        return redirect()->route('groups.index')->with('message','تم اضافة المنطقة بنجاح');
     }
 
     public function  editregion($id)
     {
         $group=Group::find($id);
+
         return view('admin.home.group.update',compact('group'));
 
     }
@@ -52,7 +52,7 @@ class GroupController extends Controller
 
         $validator=\Validator::make($request->all(),
             [
-                'name'=>'required|string',
+                'name'=>'required|string|max:30',
 
 
             ]);
@@ -64,17 +64,26 @@ class GroupController extends Controller
 
       $group=Group::find($id);
         $group->update(['name'=>$request->name]);
-        return redirect()->route('groups.index');
+        return redirect()->route('groups.index')->with('message','تم تعديل المنطقة بنجاح');;
 
 
     }
      public function getregiondetails($id){
-        $group=Group::find($id);
+        $group=Group::with('days','periods')->find($id);
          $places=Place::with('group','payments')->where('group_id',$id)->get();
          $days=Day::get();
          $periods=Period::get();
          return view('admin.home.group.details',compact('group','places','days','periods'));
 
+
+     }
+     public function deleteRegion($id){
+        $group=Group::find($id);
+        if($group==null){
+            return redirect()->route('groups.index')->with('message','تم الحذف مسبقا');;
+        }
+        $group->delete();
+         return redirect()->route('groups.index')->with('message','تم الحذف بنجاح');;
 
      }
 }

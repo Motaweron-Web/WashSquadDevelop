@@ -43,39 +43,18 @@
 @endsection
 @section('style')
 
-            <!-- App favicon -->
-            <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
-            <!-- jvectormap -->
-            <link href="{{asset('assets/libs/jqvmap/jqvmap.min.css')}}" rel="stylesheet" />
-            <!-- Bootstrap Css -->
-            <link href="{{asset('assets/css/bootstrap-rtl.min.css')}}" rel="stylesheet" type="text/css" />
-            <!-- Plugins css -->
-            <link href="{{asset('assets/libs/dropzone/min/dropzone.min.css')}}" rel="stylesheet" type="text/css" />
-            <!-- Icons Css -->
-            <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
-            <!-- App Css-->
-            <link href="{{asset('assets/css/app-rtl.min.css')}}" rel="stylesheet" type="text/css" />
 
 @endsection
 
 @section('js')
 
-            <!-- JAVASCRIPT -->
-            <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
-            <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-            <script src="{{asset('assets/libs/metismenu/metisMenu.min.js')}}"></script>
-            <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
-            <script src="{{asset('assets/libs/node-waves/waves.min.js')}}"></script>
-            <!-- dropzone js -->
-            <script src="{{asset('assets/libs/dropzone/min/dropzone.min.js')}}"></script>
-            <!-- apexcharts js -->
-            <script src="{{asset('assets/libs/apexcharts/apexcharts.min.js')}}"></script>
-            <!-- jquery.vectormap map -->
-            <script src="{{asset('assets/libs/jqvmap/jquery.vmap.min.js')}}"></script>
-            <script src="{{asset('assets/libs/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
-            <script src="{{asset('assets/js/pages/dashboard.init.js')}}"></script>
-            <script src="{{asset('assets/js/app.js')}}"></script>
+
               <script>
+                  @if(session()->has('message'))
+
+                  toastr.success('تمت العملية بنجاح');
+                  @endif
+
 
                   $(document).on("click",".editstatus", function (e) {
                       e.preventDefault();
@@ -92,19 +71,19 @@
                           success:function(res){
                               if(res['status']==true)
                               {
-
-                                  location.reload();
+                               toastr.success('تم التحديث بنجاح');
+location.reload();
 
                               }
                               else if(res['status']==false)
-                                  alert('false');
+                                  toastr.error('رجاء المحاولة لاحقا');
 
                               else
-                                  alert('fff');
+                                  toastr.error('رجاء المحاولة لاحقا');
 
                           },
                           error: function(data){
-                            alert('error');
+                              toastr.error('رجاء المحاولة لاحقا');
                           }
                       });
 

@@ -17,7 +17,7 @@ class UserController extends Controller
 
     ########################################==index==##############################################3
     public function index(){
-//return 1;
+
         $AppSettingDrivers= User::where('user_type',2)->latest()->get();
 
         return view('admin.AppSettingDrivers.index', compact('AppSettingDrivers'));
@@ -74,7 +74,6 @@ class UserController extends Controller
             return redirect()->route('admin.AppSettingDrivers')->with(['success' => 'تم الحفظ بنجاح']);
 
         } catch (\Exception $ex) {
-      //   return $ex;
             return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
 
         }

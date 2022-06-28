@@ -15,7 +15,7 @@ class TimeController extends Controller
     //
     public  function index()
     {
-        $periods=Period::get();
+        $periods=Period::paginate(15);
         $periodlimits=PeriodLimit::get();
         $sizes=CarSize::get();
 
@@ -105,7 +105,7 @@ class TimeController extends Controller
             }
 
 
-        return redirect()->route('showperiods');
+        return redirect()->route('showperiods')->with('message','تمت اضافة الفترة بنجاح');
 
     }
     public  function  deletetime(Request $request){
@@ -209,7 +209,7 @@ class TimeController extends Controller
         }
 
 
-        return redirect()->route('showperiods');
+        return redirect()->route('showperiods')->with('message','تمت تعديل الفترة بنجاح');
     }
 
 

@@ -12,7 +12,6 @@ Route::get('monthly-subscription-anotherMonth', 'MonthlySubscriptionController@a
 Route::resource('sent-services', 'SentServicesController');
 
 
-
 ########################################== mustafaELtatawy     ==################################################
 ########################################== app_setting_drivers ==################################################
 
@@ -40,3 +39,74 @@ Route::group(['prefix'=>'app_setting_faq'],function(){
     Route::post('update/{id}','AppSettingFaqController@update')->name('admin.AppSettingFaq.update');
     Route::get('delete/{id}','AppSettingFaqController@destroy')->name('admin.AppSettingFaq.delete');
 });
+
+
+########################################== socialMedia ==################################################
+
+Route::group(['prefix'=>'app_setting_social'],function(){
+    Route::get('/','AdminSocialMediaController@index')->name('admin.AppSettingSocial');
+    Route::post('update/{id}','AdminSocialMediaController@update')->name('admin.AppSettingSocial.update');
+});
+
+########################################== Support ==################################################
+
+Route::group(['prefix'=>'app_setting_Support'],function(){
+    Route::get('/','AdminSupportController@index')->name('admin.AppSettingSupport');
+    Route::post('update/{id}','AdminSupportController@update')->name('admin.AppSettingSupport.update');
+});
+
+
+#######################################==sentServices==##########################################
+Route::group(['prefix'=>'sentServices'],function(){
+    Route::get('/','SentServicesController@index')->name('admin.SentServices');
+    Route::get('creat','SentServicesController@creat')->name('admin.SentServices.creat');
+    Route::post('store','SentServicesController@store')->name('admin.SentServices.store');
+    Route::get('edit/{id}','SentServicesController@edit')->name('admin.SentServices.edit');
+    Route::post('update/{id}','SentServicesController@update')->name('admin.SentServices.update');
+    Route::get('delete/{id}','SentServicesController@destroy')->name('admin.SentServices.delete');
+});
+
+####################################==ContactMail==3###############################################
+Route::group(['prefix'=>'ContactMail'],function(){
+
+    Route::get('washSquad','ContactMailController@index')->name('admin.ContactMail');
+    Route::post('store','ContactMailController@creat')->name('admin.ContactMail.creat');
+    Route::post('store','ContactMailController@store')->name('admin.ContactMail.store');
+    Route::get('delete/{id}','ContactMailController@destroy')->name('admin.ContactMail.delete');
+
+
+});
+
+
+
+
+#######################################==online_store_categories==##########################################
+Route::group(['prefix'=>'online_store_categories'],function(){
+    Route::get('/','OnlineStoreCategoriesController@index')->name('admin.OnlineStoreCategories');
+
+    Route::get('creat','OnlineStoreCategoriesController@creat')->name('admin.OnlineStoreCategories.creat');
+    Route::post('store','OnlineStoreCategoriesController@store')->name('admin.OnlineStoreCategories.store');
+    Route::get('edit/{id}','OnlineStoreCategoriesController@edit')->name('admin.OnlineStoreCategories.edit');
+    Route::post('update/{id}','OnlineStoreCategoriesController@update')->name('admin.OnlineStoreCategories.update');
+    Route::get('delete/{id}','OnlineStoreCategoriesController@destroy')->name('admin.OnlineStoreCategories.delete');
+});
+#########################################################################################################
+Route::group(['prefix'=>'UserEmploy'],function(){
+    Route::get('/','UserEmployController@index')->name('admin.UserEmploy');
+
+    Route::post('store','UserEmployController@store')->name('admin.UserEmploy.store');
+    Route::get('edit/{id}','UserEmployController@edit')->name('admin.UserEmploy.edit');
+    Route::post('update/{id}','UserEmployController@update')->name('admin.UserEmploy.update');
+    Route::get('delete/{id}','UserEmployController@destroy')->name('admin.UserEmploy.delete');
+});
+
+#######################################==UserEmploy==##########################################
+Route::group(['prefix'=>'SalariesCommissions'],function(){
+    Route::get('/','SalaryAndCommissionController@index')->name('admin.SalariesCommissions');
+
+    Route::post('store','SalaryAndCommissionController@store')->name('admin.SalariesCommissions.store');
+    Route::post('edit/{id}','SalaryAndCommissionController@edit')->name('admin.SalariesCommissions.edit');
+    Route::get('update','SalaryAndCommissionController@update')->name('admin.SalariesCommissions.update');
+    Route::get('delete/{id}','SalaryAndCommissionController@destroy')->name('admin.SalariesCommissions.delete');
+});
+

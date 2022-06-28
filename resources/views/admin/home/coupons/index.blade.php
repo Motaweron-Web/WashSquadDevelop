@@ -37,10 +37,13 @@
                     <td> {{$coupon->ratio}} </td>
                     <td>
 
-                    @foreach($coupon->payments as $payment)
+                    @foreach($coupon->payments as $index=> $payment)
 
+                        @if($index==0)
+                                {{$payment->type}}
+                            @else
                         {{$payment->type}}-
-
+                            @endif
                         @endforeach
 
                     </td>
@@ -58,6 +61,20 @@
                 @endforeach
                 </tbody>
             </table>
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="{{$coupons->previousPageUrl()}}">Previous</a>
+                    </li>
+                    @for($i=1;$i<=$coupons->lastPage();$i++)
+                        <li class="page-item"><a class="page-link" href='?page={{$i}}'> {{$i}}</a></li>
+                    @endfor
+                    <li class="page-item ">
+                        <a class="page-link"  href="{{$coupons->nextPageUrl()}}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
         </div>
     </section>
     <!-- End discounts -->
@@ -140,70 +157,18 @@
 
 @section('style')
 
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
-    <!-- jvectormap -->
-    <link href="{{asset('assets/libs/jqvmap/jqvmap.min.css')}}" rel="stylesheet" />
-    <!-- Bootstrap Css -->
-    <link href="{{asset('assets/css/bootstrap-rtl.min.css')}}" rel="stylesheet" type="text/css" />
-    <!-- Plugins css -->
-    <link href="{{asset('assets/libs/dropzone/min/dropzone.min.css')}}" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="{{asset('assets/css/app-rtl.min.css')}}" rel="stylesheet" type="text/css" />
+
 
 @endsection
 
 @section('js')
+            <script>
+                @if(session()->has('message'))
 
-    <!-- JAVASCRIPT -->
-    <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('assets/libs/metismenu/metisMenu.min.js')}}"></script>
-    <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
-    <script src="{{asset('assets/libs/node-waves/waves.min.js')}}"></script>
-    <!-- dropzone js -->
-    <script src="{{asset('assets/libs/dropzone/min/dropzone.min.js')}}"></script>
-    <!-- apexcharts js -->
-    <script src="{{asset('assets/libs/apexcharts/apexcharts.min.js')}}"></script>
-    <!-- jquery.vectormap map -->
-    <script src="{{asset('assets/libs/jqvmap/jquery.vmap.min.js')}}"></script>
-    <script src="{{asset('assets/libs/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
-    <script src="{{asset('assets/js/pages/dashboard.init.js')}}"></script>
-    <script src="{{asset('assets/js/app.js')}}"></script>
-    <script>
-        $(document).on("click",".deletepayment", function (e) {
-            e.preventDefault();
-            var id= $(this).attr('paymentid');
+                toastr.success('تمت العملية بنجاح');
+                @endif
 
-            $.ajax({
-                type:'GET',
-                url:"{{route('deletepayment')}}",
-                data:{
-                    id:id,
-                },
-
-                success:function(res){
-                    if(res['status']==true)
-                    {
-
-                        $(`#${id}`).remove();
-
-                    }
-                    else if(res['status']==false)
-                        location.reload();
-
-
-                },
-                error: function(data){
-                    alert('error');
-                }
-            });
-
-        });
-    </script>
-
+            </script>
 
     <script>
         $(document).on("click",".changecouponstatus", function (e) {
@@ -218,7 +183,7 @@
                 success:function(res){
                     if(res['status']==true)
                     {
-
+                 toastr.success('تم تحديث الحالة بنجاح')
 
                     }
                     else if(res['status']==false)

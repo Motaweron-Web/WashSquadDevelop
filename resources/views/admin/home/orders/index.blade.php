@@ -46,7 +46,7 @@
                             @elseif($order->status==5)
                                  <button class="canceled"> تم الالفاء </button>
                              @else
-                                <button class="canceled">  منك للة </button>
+                                <button class="canceled">   لم يحدد </button>
 
                             @endif
                             <h5 class="mb-0 driver-serial"> {{$order->driver->id}} </h5>
@@ -64,7 +64,7 @@
 
                         </div>
                         <div class="gps py-2">
-                            <h6 class="text-center"> {{$order->address}} </h6>
+                            <h6 class="text-center"> {{$order->place->group->name ??''}} :{{$order->place->ar_name}} </h6>
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                         <tbody>
                         @foreach($orders as $order)
                         <tr>
-                            <td > {{$order->id}} </td>
+                            <td > {{$order->driver->id ??''}} </td>
                             <td>
 
                                 @if($order->status==1)
@@ -107,7 +107,7 @@
                                 @elseif($order->status==5)
                                     <button class="canceled"> تم الالفاء </button>
                                 @else
-                                    <button class="canceled">  منك للة </button>
+                                    <button class="canceled">   لم يحدد </button>
 
                                 @endif
 
@@ -160,43 +160,34 @@
 
 @section('style')
 
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
-    <!-- jvectormap -->
-    <link href="{{asset('assets/libs/jqvmap/jqvmap.min.css')}}" rel="stylesheet" />
-    <!-- Bootstrap Css -->
-    <link href="{{asset('assets/css/bootstrap-rtl.min.css')}}" rel="stylesheet" type="text/css" />
-    <!-- Plugins css -->
-    <link href="{{asset('assets/libs/dropzone/min/dropzone.min.css')}}" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="{{asset('assets/css/app-rtl.min.css')}}" rel="stylesheet" type="text/css" />
+
 
 @endsection
 
 @section('js')
 
-    <!-- JAVASCRIPT -->
-    <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('assets/libs/metismenu/metisMenu.min.js')}}"></script>
-    <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
-    <script src="{{asset('assets/libs/node-waves/waves.min.js')}}"></script>
-    <!-- dropzone js -->
-    <script src="{{asset('assets/libs/dropzone/min/dropzone.min.js')}}"></script>
-    <!-- apexcharts js -->
-    <script src="{{asset('assets/libs/apexcharts/apexcharts.min.js')}}"></script>
-    <!-- jquery.vectormap map -->
-    <script src="{{asset('assets/libs/jqvmap/jquery.vmap.min.js')}}"></script>
-    <script src="{{asset('assets/libs/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
-    <script src="{{asset('assets/js/pages/dashboard.init.js')}}"></script>
-    <script src="{{asset('assets/js/app.js')}}"></script>
+
     <script>
     // show(129,'2022-06-08 14:10:15');
     // show(130,'2022-06-08 20:10:15');
     // show(132,'2022-06-08 20:10:15');
     // show(133,);
+    $(function(){
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if(month < 10)
+            month = '0' + month.toString();
+        if(day < 10)
+            day = '0' + day.toString();
+
+        var maxDate = year + '-' + month ;
+        $('#choseMonth').attr('max', maxDate);
+    });
+
+
 
     @foreach($orders as $order )
        @if($order->status==2)
@@ -254,12 +245,12 @@
                 $('#changeFilter').on('change',function(){
                     var val = $(this).val();
                     var myUrl = "{{route('getdriverorder')}}?month={{date('Y-m')}}&type=filter&filter="+val
-                    // window.location = myUrl
+                     window.location = myUrl
                 });
                 $('#choseMonth').on('keyup keydown change', function(){
                     var val = $(this).val();
                     var myUrl = "{{route('getdriverorder')}}?month="+val+"&type=month";
-                    // window.location = myUrl
+                     window.location = myUrl
                 });
             </script>
 @endsection

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class PaymentController extends Controller
 {
     public function getpaymentmethod(){
-       $payments=Payment::get();
+       $payments=Payment::paginate(15);
         return view('admin.home.payments.index',compact('payments'));
 
     }
@@ -51,7 +51,7 @@ class PaymentController extends Controller
         }
 
     Payment::create($data);
-        return redirect()->route('getpaymentmethod');
+        return redirect()->route('getpaymentmethod')->with('message','تمة عملية الاضافة بنجاح');
 
 
     }
@@ -126,7 +126,7 @@ public function editpayment($id){
       }
 
       Payment::find($id)->update($data);
-      return redirect()->route('getpaymentmethod');
+      return redirect()->route('getpaymentmethod')->with('message','تمة عملية التعديل بنجاح');;
 
 
 

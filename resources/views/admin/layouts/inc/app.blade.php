@@ -24,6 +24,7 @@
 
     <!-- ============================================================== -->
 {{--    @yield()--}}
+    @yield('cont')
     <div class="main-content">
         <div class="page-content @yield('class')">
             <div class="container-fluid">

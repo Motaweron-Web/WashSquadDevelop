@@ -114,70 +114,43 @@
     </div>
 </div>
 
-
 @section('style')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/admin/css/dropify.min.css')}}">
+    <script src="https://cdn.ckeditor.com/4.19.0/full/ckeditor.js"></script>
 
-    <!-- dropify -->
-    <link rel="stylesheet" href="{{asset('assets/css/dropify.min.css')}}">
-    <!-- img gallery -->
-    <link rel="stylesheet" href="{{asset('assets/css/jquery.fancybox.min.css')}}">
-    <!-- Custom style  -->
-    <link rel="stylesheet" id="StyleLink" href="{{asset('assets/css/style.css')}}">
-    <!-- responsive style  -->
-    <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
-
-
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
-    <!-- jvectormap -->
-    <link href="{{asset('assets/libs/jqvmap/jqvmap.min.css')}}" rel="stylesheet" />
-    <!-- Bootstrap Css -->
-    <link href="{{asset('assets/css/bootstrap-rtl.min.css')}}" rel="stylesheet" type="text/css" />
-    <!-- Plugins css -->
-    <link href="{{asset('assets/libs/dropzone/min/dropzone.min.css')}}" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="{{asset('assets/css/app-rtl.min.css')}}" rel="stylesheet" type="text/css" />
 
 @endsection
 
 @section('js')
+    <script src="{{ asset('assets/admin/js/dropify.min.js') }}"></script>
+
+    <script>
+        @if($errors->any())
+        toastr.error('يرحي التاكد من البيانت المدخلة');
+        @endif
+
+    </script>
+
+    <script>
+        $('.dropify').dropify();
+        $(function () {
+            $(document).on("click", "#saveImage", function (event) {
+                let myForm = document.getElementById('saveForm');
+                let formData = new FormData(myForm);
+                uploadImage(formData);
+                console.log(formData);
+            });
+        });
 
 
-
-
-    <!-- JAVASCRIPT -->
-    <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('assets/libs/metismenu/metisMenu.min.js')}}"></script>
-    <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
-    <script src="{{asset('assets/libs/node-waves/waves.min.js')}}"></script>
-    <!-- dropzone js -->
-    <script src="{{asset('assets/libs/dropzone/min/dropzone.min.js')}}"></script>
-    <!-- apexcharts js -->
-    <script src="{{asset('assets/libs/apexcharts/apexcharts.min.js')}}"></script>
-    <!-- jquery.vectormap map -->
-    <script src="{{asset('assets/libs/jqvmap/jquery.vmap.min.js')}}"></script>
-    <script src="{{asset('assets/libs/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
-    <script src="{{asset('assets/js/pages/dashboard.init.js')}}"></script>
-    <script src="{{asset('assets/js/app.js')}}"></script>
-    <script src="{{asset('assets/js/jquery-3.5.1.min.js')}}"></script>
-    <script src="{{asset('assets/js/popper.min.js')}}"></script>
-    <script src="{{asset('assets/js/jquery.appear.min.js')}}"></script>
-    <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('assets/js/mdb.min.js')}}"></script>
-    <script src="{{asset('assets/js/swiper.js')}}"></script>
-    <script src="{{asset('assets/js/wow.min.js')}}"></script>
-    <script src="{{asset('assets/js/jquery.fancybox.min.js')}}"></script>
-    <script src="{{asset('assets/js/fontawesome-pro.js')}}"></script>
-    <script src="{{asset('assets/js/odometer.min.js')}}"></script>
-    <script src="{{asset('assets/js/select2.js')}}"></script>
-    <script src="{{asset('assets/js/ma5-menu.min.js')}}"></script>
-    <script src="{{asset('assets/js/dropify.min.js')}}"></script>
-    <script src="{{asset('assets/js/Custom.js')}}"></script>
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script>
+<script>
+
+    CKEDITOR.replace('ar_des');
+    CKEDITOR.replace('en_des');
+</script>
 
 
 @endsection

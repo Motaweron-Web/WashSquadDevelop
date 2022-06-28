@@ -27,7 +27,7 @@
                     <select class="form-select mo-form-select"  name="place_id" id="">
                         <option value="" selected disabled>الحي</option>
                         @foreach($places as $place)
-                            <option value="{{$place->id}}" {{$place->id == $order->place_id?'selected':''}}>{{$place->title_ar}}</option>
+                            <option value="{{$place->id}}" {{$place->id == $order->place_id?'selected':''}}>{{$place->ar_name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -126,6 +126,7 @@
         <input id="total-value" type="hidden" value="0">
     </form>
 </div>
+
 <script>
 
     // Show Governorates

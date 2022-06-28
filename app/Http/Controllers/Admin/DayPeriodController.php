@@ -30,6 +30,6 @@ class DayPeriodController extends Controller
                 ]);
             }
         }
-       return redirect()->route('getregiondetails',$id);
+       return redirect()->route('getregiondetails',$id)->with('message','تم التعديل بنجاح');
     }
 }

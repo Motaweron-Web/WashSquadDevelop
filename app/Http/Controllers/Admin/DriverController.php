@@ -65,7 +65,7 @@ class DriverController extends Controller
 
         $betweenMonth = [$fromDate, $toDate];
 //        return $betweenMonth;
-         $orders=Order::whereBetween("date", $betweenMonth)->with('service','driver')->paginate(10);
+        $orders=Order::whereBetween("date", $betweenMonth)->with('service','driver')->paginate(10);
         return view('admin.home.orders.index',compact('orders','request'));
 
     }

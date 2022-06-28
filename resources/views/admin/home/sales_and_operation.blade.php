@@ -23,8 +23,8 @@
 
         </div>
         <div class="p-2">
-            <a href="javascript:genScreenshot()" class="btn  exportExcel"> <i class="fas fa-download me-2"></i> Export PDF
-            </a>
+            <button onclick="convert()" class="btn  exportExcel"> <i class="fas fa-download me-2"></i> Export PDF
+            </button>
         </div>
     </div>
     <!-- start page title -->
@@ -396,6 +396,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script>
+        function convert(){
+            window.print();
+        }
         function genScreenshot() {
             html2canvas(document.body, {
                 onrendered: function(canvas) {
@@ -430,6 +433,20 @@
         }
     </script>
     <script>
+        $(function(){
+            var dtToday = new Date();
+
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+            if(month < 10)
+                month = '0' + month.toString();
+            if(day < 10)
+                day = '0' + day.toString();
+
+            var maxDate = year + '-' + month ;
+            $('#choseMonth').attr('max', maxDate);
+        });
         $(document).ready(function () {
             $(".saleInput").on('keyup', function () {
                 var obj = $(this);

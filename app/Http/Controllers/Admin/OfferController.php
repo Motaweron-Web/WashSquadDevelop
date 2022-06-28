@@ -14,7 +14,7 @@ class OfferController extends Controller
     {
 
 
-        $offers = Offer::with('service')->get();
+        $offers = Offer::with('service')->paginate(15);
         return view('admin.home.offers.index', compact('offers'));
     }
 
@@ -67,7 +67,7 @@ class OfferController extends Controller
             $data['en_image'] = $imagename;
         }
         Offer::create($data);
-        return redirect()->route('getoffers');
+        return redirect()->route('getoffers')->with('message','تم اضافة العرض بنجاح');
 
 
     }
@@ -128,7 +128,7 @@ class OfferController extends Controller
         }
         $offer=Offer::find($id);
         $offer->update($data);
-        return redirect()->route('getoffers');
+        return redirect()->route('getoffers')->with('message','تم تحديث الطلب بنجاح');
 
 
     }

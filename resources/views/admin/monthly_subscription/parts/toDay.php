@@ -1,5 +1,5 @@
 <?php
-use App\Order;
+use App\Models\Order;
 
 if ($i < 10) {
     $newI = '0' . $i;

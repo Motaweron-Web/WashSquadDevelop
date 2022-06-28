@@ -48,6 +48,25 @@ Route::get('/lang/{lang}', function ($lang) {
     return back();
 });
 
+Route::get('/', function () {
+
+    $twitter=\App\Models\Social::where('id',2)->first();
+    $facebook=\App\Models\Social::where('id',12)->first();
+    $snapchat=\App\Models\Social::where('id',11)->first();
+    $instagram=\App\Models\Social::where('id',4)->first();
+
+
+
+    $phone=\App\Models\Support::where('id',3)->first();
+    $envelope=\App\Models\Support::where('id',2)->first();
+
+
+
+
+    return view('welcome',compact('twitter','facebook','snapchat','instagram','phone','envelope'));
+
+
+});
 
 Route::middleware(['Lang'])->group(function () {
 
@@ -56,9 +75,7 @@ Route::middleware(['Lang'])->group(function () {
     Route::get('link/sms/order/{id}', 'CheckPlaceController@index');//link
     Route::post('link/activate', 'CheckPlaceController@link_activate');
     Route::post('add/place', 'CheckPlaceController@add_place');
-    Route::get('/', function () {
-        return view('index');
-    });
+
 
     Route::get('/login', 'WebAuthController@login_view')->name('login');//login view
     Route::post('login', 'WebAuthController@login');//login action
