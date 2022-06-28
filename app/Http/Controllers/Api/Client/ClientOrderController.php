@@ -177,6 +177,15 @@ class ClientOrderController extends Controller
         $save = $order->save();
 
         $firstDate = $request->day;
+//Mohamed gamal
+
+
+
+
+
+
+
+
 
         if ($save) {
             if ($request->service_id == 77) {
