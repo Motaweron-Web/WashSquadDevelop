@@ -87,7 +87,7 @@
                             <span> التقارير المالية </span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="orders-reports.html"> تقارير الطلبات   </a></li>
+                            <li><a href="{{route('admin.FinancialOrderReports')}}"> تقارير الطلبات   </a></li>
                             <li><a href="{{route('admin.cars.revenue')}}"> تقارير ايرادات السيارات    </a></li>
                             <li><a href="{{route('admin.carPerformance.index')}}"> تقارير اداء السيارات </a></li>
 

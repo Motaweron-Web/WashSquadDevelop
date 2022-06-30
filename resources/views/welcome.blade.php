@@ -71,7 +71,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#contact-us">دخول الموظفين </a>
+                    <a class="nav-link" href="{{route('admin.dashboard')}}">دخول الموظفين </a>
                 </li>
             </ul>
         </div>

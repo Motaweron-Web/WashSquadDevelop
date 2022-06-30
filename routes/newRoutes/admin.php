@@ -131,4 +131,10 @@ Route::group(['prefix'=>'apps'],function(){
 
 });
 
-#######################################==apps==##########################################
+#######################################==FinancialOrderReports==##########################################
+Route::group(['prefix'=>'FinancialOrderReports'],function(){
+    Route::get('/','FinancialOrderReportsController@index')->name('admin.FinancialOrderReports');
+
+    Route::get('excel','FinancialOrderReportsController@export')->name('admin.FinancialOrderReports.excel');
+
+});
