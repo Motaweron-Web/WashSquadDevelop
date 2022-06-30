@@ -8,6 +8,7 @@ use App\Models\UserEmploy;
 use App\traits\PhotoTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class UserEmployController extends Controller
 {
@@ -136,6 +137,15 @@ public function update($id,Request $request){
     }
 
 }
+
+
+
+    public function pdf()
+    {
+        $data = UserEmploy::get()->all();
+        $pdf = PDF::loadView('UserEmploy.index', ['data'=>$data]);
+        return $pdf->stream('form.pdf');
+    }
 
 
 

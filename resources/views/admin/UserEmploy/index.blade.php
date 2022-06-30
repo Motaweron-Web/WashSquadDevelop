@@ -177,8 +177,7 @@
                                 </div>
                                 <div class="modal-footer ">
                                     <div class="w-100 d-flex justify-content-between">
-                                        <button type="button" class="btn stoped pdf mx-2" data-bs-dismiss="modal">
-                                            download <i class="mx-1 far fa-file-pdf"></i> </button>
+
                                         <div class="">
                                             <button type="submit" class="btn stoped  mx-2"> حفظ التغييرات </button>
                                             <button type="button" class="btn stoped " data-bs-dismiss="modal"> إغلاق
@@ -373,7 +372,7 @@
                                             </div>
                                             <div class="modal-footer" id="modal-footer">
                                                 <div class="w d-flex justify-content-between">
-                                                    <button type="button" class="btn stoped pdf mx-2" data-bs-dismiss="modal">
+                                                    <button type="button" class="btn stoped pdf mx-2" data-bs-dismiss="modal"  name="pdf" value="{{$UserEmploy->ipan}}">
                                                         download <i class="mx-1 far fa-file-pdf"></i> </button>
                                                     <div class="">
                                                         <button type="submit" class="btn stoped  mx-2"> حفظ التغييرات </button>

@@ -25,6 +25,9 @@
     position: absolute;
     bottom: -15%;
     }
+    .x{
+        width: 285px;
+    }
     </style>
 @endsection
 
@@ -36,9 +39,10 @@
         @include('admin.alerts.errors')
 
         <div class="d-flex flex-wrap justify-content-end mb-3">
-            <div class="p-2 col-4">
-                <input type="search" class="form-control" placeholder=" اسم الموظف ">
-            </div>
+            <form id="searchForm" action="{{route('admin.SalariesCommissions.search',':search')}}" >
+            <div class="p-2 col-4 x">
+                <input type="search" id="searchInput" class="form-control" placeholder=" اسم الموظف " name="name">
+            </div></form>
             <div class="p-2">
                 <select class="form-select shadow-lg" id="changeFilter">
                     <option value="" disabled selected>إختر</option>
@@ -56,9 +60,13 @@
 
             </div>
             <div class="p-2">
-                <button class="btn  exportExcel"> <i class="fas fa-download me-2"></i> Export Excel
-                </button>
-            </div>
+                <a href="{{route('admin.SalariesCommissions.excel')}}"class="form-control" id="downloadExcel" type="button"> <i class="fas fa-download me-2"></i> Export Excel
+               </a>
+{{--            </div>--}}
+{{--            <div class=" p-1 p-xl-2 col-md-6">--}}
+{{--                <button id="downloadExcel" class="form-control" type="button">EXport To EXcel</button>--}}
+{{--            </div>--}}
+
         </div>
         <!-- tables -->
         <div class="burn">
@@ -88,18 +96,12 @@
                         <td> {{$SalaryAndcommission->commencement_date}} </td>
                         <td>  {{$SalaryAndcommission->name}} </td>
 
-                        <td> <input class="form-control" type="number" id="" value="{{$SalaryAndcommission->salary}}"
-                                    placeholder="2500"> </td>
-                        <td> <input class="form-control" type="number" id="" value=""
-                                    placeholder="2500"> </td>
-                        <td> <input class="form-control" type="number" id="" value=""
-                                    placeholder="2500"> </td>
-                        <td> <input class="form-control" type="number" id="" value=""
-                                    placeholder="2500"> </td>
-                        <td> <input class="form-control" type="number" id="" value=""
-                                    placeholder="2500"> </td>
-                        <td> <input class="form-control" type="number" id="" value=""
-                                    placeholder="2500"> </td>
+                        <td> <input class="form-control" type="number" id="nu1{{$SalaryAndcommission->id}}" value="{{$SalaryAndcommission->salary}}" name="nu1"> </td>
+                        <td> <input class="form-control" type="number" id="nu2{{$SalaryAndcommission->id}}" onchange="calculate({{$SalaryAndcommission->id}})" name="nu2"> </td>
+                        <td> <input class="form-control" type="number" onchange="calculate({{$SalaryAndcommission->id}})" id="nu3{{$SalaryAndcommission->id}}" name="nu3"> </td>
+                        <td> <input class="form-control" type="number" onchange="calculate({{$SalaryAndcommission->id}})" id="nu4{{$SalaryAndcommission->id}}" name="nu4"> </td>
+                        <td> <input class="form-control" type="number" onchange="calculate({{$SalaryAndcommission->id}})" value="0" id="nu5{{$SalaryAndcommission->id}}" name="nu5"> </td>
+                        <td> <input class="form-control" type="number" disabled id="nu6{{$SalaryAndcommission->id}}" name="nu6"> </td>
                         @if($SalaryAndcommission->is_confirmed==0)
                             <td style="vertical-align: middle; color: green; font-size: 18px;" id="{{$SalaryAndcommission->id}}">
                             <select class="form-select update_salary" data-id="{{$SalaryAndcommission->id}}" name="is_confirmed" id="update_salary">
@@ -356,5 +358,53 @@
 
 
        </script>
+
+
+       <script>
+
+
+
+               function calculate(id) {
+
+                   var nu1 = $("#nu1"+id).val();
+                   console.log(id)
+                   var nu2 = $("#nu2"+id).val();
+                   var nu3 = $("#nu3"+id).val();
+                   var nu4 = $("#nu4"+id).val();
+                   var nu5 = parseInt($("#nu5"+id).val());
+                   var total = (nu1) - (nu2) - (nu3) - (nu4);
+                   $('#nu6'+id).val(total+nu5);
+                   // $('.result').html(total);
+               }
+
+
+       </script>
+<script>
+
+    document.getElementById('downloadExcel').addEventListener('click', function () {
+        var table2excel = new Table2Excel();
+
+        table2excel.export(document.querySelectorAll("#datatable-buttons"));
+    });
+</script>
+
+    <script>
+
+        $('#searchForm').on('submit',function (e){
+            e.preventDefault();
+            var oldUrl=window.location.href;
+            var date=oldUrl.split('?')[1];
+            var val = $('#searchInput').val()
+            var myUrl = $(this).attr('action')
+            var all=val+'?'+date;
+
+            myUrl = myUrl.replace(':search',all);
+            window.location = myUrl
+            window.location = myUrl
+        })
+
+    </script>
+
+
    @endsection
 

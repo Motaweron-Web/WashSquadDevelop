@@ -38,8 +38,9 @@
 
                     <!-- <li class="menu-title">Layouts</li> -->
 
+
                     <li>
-                        <a href="apps.html" class="waves-effect">
+                        <a href="{{route('admin.Apps')}}" class="waves-effect">
                             <img src="{{url('assets/admin')}}/images/icons/baseline-business_center-24px.png" width="20px" height="20ox" alt="">
                             <span> التطبيقات </span>
                         </a>

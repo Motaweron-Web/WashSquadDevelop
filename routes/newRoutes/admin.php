@@ -90,7 +90,9 @@ Route::group(['prefix'=>'online_store_categories'],function(){
     Route::post('update/{id}','OnlineStoreCategoriesController@update')->name('admin.OnlineStoreCategories.update');
     Route::get('delete/{id}','OnlineStoreCategoriesController@destroy')->name('admin.OnlineStoreCategories.delete');
 });
-#########################################################################################################
+
+
+#######################################==UserEmploy==##########################################
 Route::group(['prefix'=>'UserEmploy'],function(){
     Route::get('/','UserEmployController@index')->name('admin.UserEmploy');
 
@@ -98,9 +100,13 @@ Route::group(['prefix'=>'UserEmploy'],function(){
     Route::get('edit/{id}','UserEmployController@edit')->name('admin.UserEmploy.edit');
     Route::post('update/{id}','UserEmployController@update')->name('admin.UserEmploy.update');
     Route::get('delete/{id}','UserEmployController@destroy')->name('admin.UserEmploy.delete');
+    Route::get('pdf','UserEmployController@pdf')->name('admin.UserEmploy.pdf');
 });
 
-#######################################==UserEmploy==##########################################
+
+
+
+#######################################== SalariesCommissions ==##########################################
 Route::group(['prefix'=>'SalariesCommissions'],function(){
     Route::get('/','SalaryAndCommissionController@index')->name('admin.SalariesCommissions');
 
@@ -108,5 +114,20 @@ Route::group(['prefix'=>'SalariesCommissions'],function(){
     Route::post('edit/{id}','SalaryAndCommissionController@edit')->name('admin.SalariesCommissions.edit');
     Route::get('update','SalaryAndCommissionController@update')->name('admin.SalariesCommissions.update');
     Route::get('delete/{id}','SalaryAndCommissionController@destroy')->name('admin.SalariesCommissions.delete');
+
+    Route::get('get/searchBYName/{search}','SalaryAndCommissionController@search')->name('admin.SalariesCommissions.search');
+    Route::get('excel','SalaryAndCommissionController@export')->name('admin.SalariesCommissions.excel');
+});
+
+#######################################==apps==##########################################
+Route::group(['prefix'=>'apps'],function(){
+    Route::get('/','AppsController@index')->name('admin.Apps');
+    Route::get('creat','AppsController@creat')->name('admin.Apps.creat');
+    Route::post('store','AppsController@store')->name('admin.Apps.store');
+    Route::get('edit/{id}','AppsController@edit')->name('admin.Apps.edit');
+    Route::post('update','AppsController@update')->name('admin.Apps.update');
+    Route::get('delete/{id}','AppsController@destroy')->name('admin.Apps.delete');
+    Route::get('excel','AppsController@export')->name('admin.Apps.excel');
+
 });
 
