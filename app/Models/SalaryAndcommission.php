@@ -4,11 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Filterable;
 
 class SalaryAndcommission extends Model
 {
     use HasFactory;
     protected $table='user_employs';
+
+
+    protected $filters = [
+        NameFilter::class,
+    ];
     protected $guarded=[];
 
     public function ScopeSelection($query){
