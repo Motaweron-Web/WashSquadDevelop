@@ -31,9 +31,11 @@ class MonthlySubscriptionController extends Controller
         $next_month = date('m', strtotime('+1 month', strtotime($year . '-' . $month . '-01')));
 
         ///////////////////////////////// end calender //////////////////////////
+        $orders=\App\Models\Order::latest()->paginate(15);
+
 
         return view('admin.monthly_subscription.index', compact('start_day',
-            'number_of_day', 'prev_year', 'prev_month', 'next_year', 'next_month', 'year', 'month', 'request'));
+            'number_of_day', 'prev_year', 'prev_month', 'next_year', 'next_month', 'year', 'month', 'request','orders'));
     }
 
     /**
