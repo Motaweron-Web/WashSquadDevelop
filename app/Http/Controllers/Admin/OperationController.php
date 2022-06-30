@@ -10,6 +10,7 @@ use App\Models\Service;
 use App\Models\User;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class OperationController extends Controller
 {
@@ -91,8 +92,40 @@ class OperationController extends Controller
          $places=Place::get();
         $carTypes=CarType::where('level',1)->get();
         $services=Service::where('level',1)->get();
-        return view('admin.home.operation.index',compact('neworders','roadorders','workorders','cancelorders','doneorders','finishorders','drivers','places','carTypes','services','request'));
 
+
+
+
+        $units = \UnitGps::all();
+        $units = json_decode($units);
+
+        $bigArray = [];
+        foreach($units as $unit) {
+            $stringJs = json_encode($unit);
+            $smallArray = [];
+            $smallArray['name'] = Str::between($stringJs,'"nm":"','","mu"');
+            $smallArray['lat'] = Str::between($stringJs,'"lat":',',"lon":');
+            $smallArray['lng'] = Str::between($stringJs,'"lon":','}');
+            $bigArray[] = $smallArray;
+        }
+        return view('admin.home.operation.index',compact('neworders','roadorders','workorders','cancelorders','doneorders','finishorders','drivers','places','carTypes','services','request','bigArray'));
+
+    }//end fun
+    public function carTrack()
+    {
+        $units = \UnitGps::all();
+        $units = json_decode($units);
+
+        $bigArray = [];
+        foreach($units as $unit) {
+            $stringJs = json_encode($unit);
+            $smallArray = [];
+            $smallArray['name'] = Str::between($stringJs,'"nm":"','","mu"');
+            $smallArray['lat'] = Str::between($stringJs,'"lat":',',"lon":');
+            $smallArray['lng'] = Str::between($stringJs,'"lon":','}');
+            $bigArray[] = $smallArray;
+        }
+        return response($bigArray);
     }
     public function searcbymobile(Request $request){
 

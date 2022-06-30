@@ -3,6 +3,23 @@
     apps operation burn
 @endsection
 @section('cont')
+    <style>
+        #map {
+            height: 100%;
+        }
+
+        /*
+         * Optional: Makes the sample page fill the window.
+         */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+
+    </style>
 
     <!-- date -->
     <div class="main-content">
@@ -53,9 +70,10 @@
     <!-- Map -->
     <div class="gps">
         <h4 class="operation-head"> خريطة الطلبات </h4>
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d929379.4602443745!2d46.53355629405653!3d24.50663524780021!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15e7b33fe7952a41%3A0x5960504bc21ab69b!2z2KfZhNiz2LnZiNiv2YrYqQ!5e0!3m2!1sar!2seg!4v1618065211283!5m2!1sar!2seg"
-            width="100%" height="300px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <div  width="100%" height="300px" style="border:0;">
+            <div id="map" style="position:unset !important"></div>
+        </div>
+
     </div>
     <!-- count -->
     <div class="row">
@@ -1237,7 +1255,78 @@
     </script>
 
 
+    <script>
 
+        var map, markers = [], marker
+
+        function initMap() {
+            var center = {lat: parseFloat({{$bigArray[0]['lat']}}), lng: parseFloat({{$bigArray[0]['lng']}})};
+            var latLongArray = {!! json_encode($bigArray) !!};
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: center,
+            });
+            var image = {
+                url: "https://washsquadsa.com/default.png",
+                // This marker is 20 pixels wide by 32 pixels high.
+                size: new google.maps.Size(30, 32),
+                // The origin for this image is (0, 0).
+                origin: new google.maps.Point(0, 0),
+                // The anchor for this image is the base of the flagpole at (0, 32).
+                anchor: new google.maps.Point(0, 32),
+            };
+            latLongArray.forEach(function (item, index) {
+                marker = new google.maps.Marker({
+                    position: {lat: parseFloat(item.lat), lng: parseFloat(item.lng)},
+                    map,
+                    icon: image,
+                    title: item.name,
+                });
+                markers.push(marker)
+            })
+
+        }
+
+        function initMap2(data) {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+            var image = {
+                url: "https://washsquadsa.com/default.png",
+                // This marker is 20 pixels wide by 32 pixels high.
+                size: new google.maps.Size(30, 32),
+                // The origin for this image is (0, 0).
+                origin: new google.maps.Point(0, 0),
+                // The anchor for this image is the base of the flagpole at (0, 32).
+                anchor: new google.maps.Point(0, 32),
+            };
+            markers = [];
+            data.forEach(function (item, index) {
+                marker = new google.maps.Marker({
+                    position: {lat: parseFloat(item.lat), lng: parseFloat(item.lng)},
+                    map,
+                    icon: image,
+                    title: item.name,
+
+                });
+                markers.push(marker)
+            })
+        }
+
+        window.initMap = initMap;
+        setInterval(function () {
+            // document.getElementById("map").innerHTML = ''
+            $.get("{{route('carTrack')}}", function (data) {
+                initMap2(data)
+                window.initMap = initMap2;
+
+            })
+        }, 5000);
+    </script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRH058OG79geHwTA1xw5hlOmomHIFbj94&callback=initMap&language=ar"
+        defer
+    ></script>
 
 
 
