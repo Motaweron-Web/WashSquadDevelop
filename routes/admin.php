@@ -305,8 +305,10 @@ Route::get('get/daysForParticipation','ParticipationController@getDays')->name('
 
 Route::get('add/participation','ParticipationController@addParticipation')->name('admin.add.participation');
 
+Route::get('get/orderdetails','ParticipationController@getOrderDeatails')->name('admin.order.participation.details');
 
 
+Route::get('get/participation/filter/ByDate','ParticipationController@participationByDate')->name('admin.participation.filterByDate');
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
