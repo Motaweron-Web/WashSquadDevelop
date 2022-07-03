@@ -76,7 +76,7 @@
                                 <td> {{$App->ratio}} </td>
                                 <td>
                                     <a href="{{route('admin.Apps.edit',$App->id)}}" class="more-details me-3"> تعديل </a>
-                                    <a href="apps_status.html"> <img src="{{asset('assets/admin/images/icons/assessment.svg')}}" style="width: 30px; height: 30px;" alt=""> </a>
+                                    <a href="{{route('admin.appStatus')}}"> <img src="{{asset('assets/admin/images/icons/assessment.svg')}}" style="width: 30px; height: 30px;" alt=""> </a>
                                 </td>
                             </tr>
     @endforeach

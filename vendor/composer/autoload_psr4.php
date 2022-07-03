@@ -11,6 +11,7 @@ return array(
     'ZipStream\\' => array($vendorDir . '/maennchen/zipstream-php/src'),
     'Yoeunes\\Toastr\\' => array($vendorDir . '/yoeunes/toastr/src'),
     'Yajra\\DataTables\\' => array($vendorDir . '/yajra/laravel-datatables-oracle/src'),
+    'Wialon\\' => array($baseDir . '/wialon'),
     'Whoops\\' => array($vendorDir . '/filp/whoops/src/Whoops'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'UxWeb\\SweetAlert\\' => array($vendorDir . '/uxweb/sweet-alert/src/SweetAlert'),
