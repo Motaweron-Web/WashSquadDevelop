@@ -81,4 +81,10 @@ class Order extends Model
    public function  sub_sub_services(){
         return $this->belongsToMany(Service::class,'sub_service_orders','order_id','sub_service_id');
    }
+////////////////// financial order reports//////////
+    public function ScopeSelection($query){
+        return $query->select('id','order_date','order_type','number_of_cars','service_id','sub_service_id','sub_type_id','place_id','user_id','total_price','driver_id','status');
+    }
+
+
 }//end class
