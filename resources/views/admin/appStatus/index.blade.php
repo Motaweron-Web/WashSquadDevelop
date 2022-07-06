@@ -52,7 +52,7 @@
         @endforeach
         <!-- end single log -->
         <!-- single log -->
-        <div></div>
+
         <!-- end single log -->
         <!-- single log -->
         <div class="singleLog flex-column active ">

@@ -2,7 +2,7 @@
     @php
 
     $firstSubServiceTitle = '';
-    $subServiceOrder = App\SubServiceOrder::where('order_id',$order->id)->with('service');
+    $subServiceOrder = App\Models\SubServiceOrder::where('order_id',$order->id)->with('service');
     if($subServiceOrder->count()){
             $firstSubServiceTitle = $subServiceOrder->get()[0]->service->ar_title;
     }

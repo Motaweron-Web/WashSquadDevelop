@@ -348,6 +348,7 @@
                         <td><a href="https://maps.google.com/?q={{$order->latitude}},{{$order->longitude}}" target="_blank"> <i class="fas fa-map-marker-alt"></i>
                             </a></td>
                         <td><a href="{{url("api/order/print/$order->id")}}" target="_blank"><i class="fas fa-file-pdf"></i> </a></td>
+
                         <td>
                             <a data-bs-toggle="modal" data-bs-target="#exampleModal" orderid="{{$order->id}}" class="showdetails"
                                style="cursor: pointer;"> <i class="dripicons-information px-1 informationData"></i>

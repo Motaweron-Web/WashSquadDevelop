@@ -52,15 +52,13 @@
             <div class="modal-content">
                 <div class="modal-body" id="createOrUpdateContent">
                 </div>
-                <div class="modal-footer ">
-                    <div class="w-100 d-flex justify-content-between">
-                        <div class="">
-                            <button type="button" class="btn stoped  mx-2" data-bs-dismiss="modal">
-                                إلغاء </button>
-                            <button type="submit" form="Form" id="submitBtn" class="btn stoped "> أضف </button>
-                        </div>
-                    </div>
-                </div>
+{{--                <div class="modal-footer ">--}}
+{{--                    <div class="w-100 d-flex justify-content-end">--}}
+{{--                            <button type="submit" id="submitBtn" class="btn orangeBtn"> حفط </button>--}}
+{{--                            <button type="button" class="btn stoped  mx-2" data-bs-dismiss="modal">--}}
+{{--                                إلغاء </button>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
             <!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -92,9 +90,9 @@
         </div>
 
                 <div class=" p-1 p-xl-2">
-                    <button class="stoped create-btn" data-url="{{route('orders.create')}}">
-                        <i class="fas fa-plus me-2"></i>
-                        إضافة طلب </button>
+{{--                    <button class="stoped create-btn" data-url="{{route('orders.create')}}">--}}
+{{--                        <i class="fas fa-plus me-2"></i>--}}
+{{--                        إضافة طلب </button>--}}
                 </div>
 
         <div class=" p-1 p-xl-2">
@@ -105,11 +103,11 @@
     </div>
     <div class="container">
         <div class="   hints d-flex align-items-center justify-content-end">
-            <p class="px-2 py-1"> polishing <i class="polish fas fa-circle ps-1"></i> </p>
-            <p class="px-2 py-1"> wash <i class="wash fas fa-circle ps-1"></i> </p>
-            <p class="px-2 py-1"> Sterilization <i class="sterili fas fa-circle ps-1"></i> </p>
-            <p class="px-2 py-1"> Monthly subscription <i class="month fas fa-circle ps-1"></i> </p>
             <p class="px-2 py-1"> Gift <i class="gift fas fa-circle ps-1"></i> </p>
+            <p class="px-2 py-1"> Monthly subscription <i class="month fas fa-circle ps-1"></i> </p>
+            <p class="px-2 py-1"> Sterilization <i class="sterili fas fa-circle ps-1"></i> </p>
+            <p class="px-2 py-1"> wash <i class="wash fas fa-circle ps-1"></i> </p>
+            <p class="px-2 py-1"> polishing <i class="polish fas fa-circle ps-1"></i> </p>
         </div>
         <div class="calendarHead">
             <div class="day">Sat</div>
@@ -162,7 +160,7 @@
     </div>
     <div class="table-rep-plugin">
         <div class="table-responsive mb-0 rounded" data-pattern="priority-columns">
-            <table id="datatable-buttons" class="table  nowrap">
+            <table id="datatable-buttons" class="table dt-responsive nowrap">
                 <thead>
                 <tr>
                     <th> رقم الطلب </th>
@@ -192,7 +190,7 @@
     </div>
     <div style='clear:both'></div>
     <!-- Add New Event MODAL -->
-    <div class="modal fade" id="event-modal" data-bs-backdrop="static" data-bs-keyboard="false"
+    <div class="modal fade" id="event-modal"  data-bs-backdrop="static" data-bs-keyboard="false"
          tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -254,4 +252,21 @@
 @endsection
 @section('js')
     @include('admin.orders.assets.js')
+{{--    <!-- Required datatable js -->--}}
+{{--    <script src="{{url('assets/admin')}}/libs/datatables.net/js/jquery.dataTables.min.js"></script>--}}
+{{--    <script src="{{url('assets/admin')}}/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>--}}
+{{--    <!-- Buttons examples -->--}}
+{{--    <script src="{{url('assets/admin')}}/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>--}}
+{{--    <script src="{{url('assets/admin')}}/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>--}}
+{{--    <script src="{{url('assets/admin')}}/libs/jszip/jszip.min.js"></script>--}}
+{{--    <script src="{{url('assets/admin')}}/libs/pdfmake/build/pdfmake.min.js"></script>--}}
+{{--    <script src="{{url('assets/admin')}}/libs/pdfmake/build/vfs_fonts.js"></script>--}}
+{{--    <script src="{{url('assets/admin')}}/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>--}}
+{{--    <script src="{{url('assets/admin')}}/libs/datatables.net-buttons/js/buttons.print.min.js"></script>--}}
+{{--    <script src="{{url('assets/admin')}}/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>--}}
+{{--    <!-- Responsive examples -->--}}
+{{--    <script src="{{url('assets/admin')}}/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>--}}
+{{--    <script src="{{url('assets/admin')}}/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>--}}
+{{--    <!-- Datatable init js -->--}}
+{{--    <script src="{{url('assets/admin')}}/js/pages/datatables.init.js"></script>--}}
 @endsection

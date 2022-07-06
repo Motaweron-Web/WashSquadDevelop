@@ -306,8 +306,10 @@ Route::get('get/daysForParticipation','ParticipationController@getDays')->name('
 
 Route::get('add/participation','ParticipationController@addParticipation')->name('admin.add.participation');
 
+Route::get('get/orderdetails','ParticipationController@getOrderDeatails')->name('admin.order.participation.details');
 
 
+Route::get('get/participation/filter/ByDate','ParticipationController@participationByDate')->name('admin.participation.filterByDate');
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -417,6 +419,7 @@ Route::get('add/participation','ParticipationController@addParticipation')->name
             Route::resource('orders', 'AdminOrderController');
             Route::get('orders-dailyOrder', 'AdminOrderController@dailyOrder')->name('orders.dailyOrder');
             Route::POST('orders-dailyOrder-save', 'AdminOrderController@dailyOrderSave')->name('orders.dailyOrder.save');
+            Route::POST('dailyOrderDistributionStore', 'AdminOrderController@dailyOrderDistributionStore')->name('dailyOrderDistributionStore');
             Route::get('orders-showInformation/{id}', 'AdminOrderController@showInformation')->name('orders.showInformation');
             Route::get('orders-anotherMonth', 'AdminOrderController@anotherMonth')->name('orders.anotherMonth.index');
             Route::post('orders-driver-insert', 'AdminOrderController@insertDriver')->name('orders.driver.insert');

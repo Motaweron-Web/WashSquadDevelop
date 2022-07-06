@@ -107,6 +107,7 @@
                     console.log(data.html)
                     $('.calender').html(data.html)
                     window.history.pushState({path:newUrl},'',newUrl);
+                    location.reload();
                 }else {
                     window.location = "{{route('monthly-subscription.index')}}?month={{date('Y-m')}}"
                 }

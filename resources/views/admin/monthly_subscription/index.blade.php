@@ -114,7 +114,7 @@
 
     <div class="table-rep-plugin">
         <div class="table-responsive mb-0 rounded" data-pattern="priority-columns">
-            <table id="datatable-buttons" class="table dt-responsive nowrap">
+            <table id="datatable-buttons" class="table  nowrap">
                 <thead>
                 <tr>
                     <th> رقم الطلب </th>
@@ -136,64 +136,43 @@
                 </tr>
                 </thead>
 
-{{--                <tbody >--}}
-{{--                <tr>--}}
-{{--                    <td> {{$order->driver->id}} </td>--}}
-{{--                    <td> {{$order->date}}</td>--}}
-{{--                    <td> {{$order->user->full_name}} </td>--}}
-{{--                    <td>--}}
+                <tbody id="orders-table" >
 
-{{--                        @foreach($order->sub_sub_services as $index=> $service)--}}
-{{--                            @if($index==0)--}}
-{{--                                {{$service->ar_title}}--}}
-{{--                            @else--}}
-{{--                                -       {{$service->ar_title}}--}}
+                @foreach($orders  as $order)
+                    <tr>
+                        <td> {{$order->id}} </td>
+                        <td> {{$order->date}} </td>
+                        <td> {{$order->order_time}} </td>
+                        <td> {{$order->distributor->full_name??'wash'}} </td>
+                        <td> {{$order->number_of_cars}} </td>
+                        <td> {{$order->service->ar_title ??''}} </td>
+                        <td>{{$order->sub_service->ar_title ??''}} </td>
+                        <td>
 
-{{--                            @endif--}}
-{{--                        @endforeach--}}
+                            @foreach($order->sub_sub_services as $index=> $service)
+                                @if($index==0)
+                                    {{$service->ar_title}}
+                                @else
+                                    -       {{$service->ar_title}}
 
-{{--                    </td>--}}
-{{--                    <td> <a href="tel:">{{$order->user->phone_code??''}}{{$order->user->phone??''}}</a> </td>--}}
-{{--                    <td> {{$order->total_price}}</td>--}}
-{{--                    <td> 1500 </td>--}}
-{{--                    <td> {{$order->payment->type}} </td>--}}
-{{--                    <td>--}}
-{{--                        <select class="form-select">--}}
-{{--                            <option value="1" selected> لم يعتمد </option>--}}
-{{--                            <option value="2"> تم الاعتماد </option>--}}
-{{--                        </select>--}}
-{{--                    </td>--}}
-{{--                    <td>--}}
-{{--                        <div class="actionsIcons">--}}
-{{--                            <a href="#!" class="edit" data-bs-toggle="modal" data-bs-target="#edit">--}}
-{{--                                <i class="fas fa-edit"></i> </a>--}}
-{{--                        </div>--}}
-{{--                    </td>--}}
-{{--                </tr>--}}
-{{--                @foreach($orders  as $order)--}}
-{{--                    <tr>--}}
-{{--                        <td> {{$order->id}} </td>--}}
-{{--                        <td> {{$order->date}} </td>--}}
-{{--                        <td> {{$order->order_time}} </td>--}}
-{{--                        <td>  </td>--}}
-{{--                        <td> {{$order->number_of_cars}} </td>--}}
-{{--                        <td> {{$order->service->ar_title}} </td>--}}
-{{--                        <td> اشتراك </td>--}}
-{{--                        <td> تلميع مكينة </td>--}}
-{{--                        <td> الروضة </td>--}}
-{{--                        <td> محمد </td>--}}
-{{--                        <td> 0586877977 </td>--}}
-{{--                        <td> مازدا </td>--}}
-{{--                        <td> 250SR </td>--}}
-{{--                        <td> <a data-bs-toggle="modal" data-bs-target="#exampleModal"--}}
-{{--                                style="cursor: pointer;"> <i class="fas fa-map-marker-alt"></i> </a>--}}
-{{--                        </td>--}}
-{{--                        <td> <a href=""> <i class="fas fa-file-pdf"></i> </a> </td>--}}
-{{--                        <td> <a class="sub-details" href="" data-bs-toggle="modal"--}}
-{{--                                data-bs-target="#subsc-detail"> تفاصيل الإشتراك </a> </td>--}}
-{{--                    </tr>--}}
-{{--                @endforeach--}}
-{{--                </tbody>--}}
+                                @endif
+                            @endforeach
+
+                        </td>
+                        <td> {{$order->place->ar_name ??''}} </td>
+                        <td> {{$order->user->full_name ??''}} </td>
+                        <td> <a href="tel:">{{$order->user->phone_code??''}}{{$order->user->phone??''}}</a> </td>
+                        <td> {{$order->sub_type->ar_title ?? ''}} </td>
+                        <td> {{$order->total_price}}</td>
+                        <td><a href="https://maps.google.com/?q={{$order->latitude}},{{$order->longitude}}" target="_blank"> <i class="fas fa-map-marker-alt"></i>
+                            </a></td>
+                        <td><a href="{{url("api/order/print/$order->id")}}" target="_blank"><i class="fas fa-file-pdf"></i> </a></td>
+
+                        <td> <button class="btn btn-info orderDeatails" data-id="{{$order->id}}"   data-bs-toggle="modal"
+                                data-bs-target="#subsc-detail"> تفاصيل الإشتراك </button> </td>
+                    </tr>
+                @endforeach
+                </tbody>
             </table>
         </div>
     </div>
@@ -272,6 +251,12 @@
                                     <div class="mb-3">
                                         <label class="form-label" for="default-input"> فترة الطلب </label>
                                        <input class="form-control" type="time" name="order_time" id="a-order_time">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="default-input"> تاريخ الطلب </label>
+                                        <input class="form-control" type="date" name="date" id="a-date">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -358,6 +343,79 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div>
+
+
+
+
+
+    <div class="modal fade" id="subsc-detail" data-bs-backdrop="static" data-bs-keyboard="false"
+         tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header py-3 px-4">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-md-2 text-center p-1">
+                            <div class="w-100 d-flex justify-content-center mb-2">
+                                <img src="assets/images/Group 61.png" width="50px" alt="">
+                            </div>
+                            <p> الإشتراكات </p>
+                        </div>
+                        <div class="col-md-10 row p-1">
+                            <div class="col-md-3 text-center p-1">
+                                <h5 style="color: #3f0033;" > سعر الباقة </h5>
+                                <p class="pt-2"id="pricenewpart"> SR 225 </p>
+                            </div>
+                            <div class="col-md-3 text-center p-1">
+                                <h5 style="color: #3f0033;" > تاريخ البداية </h5>
+                                <p class="pt-2" id="datenewpart"> 02/8/2021 </p>
+                            </div>
+                            <div class="col-md-3 text-center p-1">
+                                <h5 style="color: #3f0033;"> الوقت / اليوم </h5>
+                                <p class="pt-2" id="timenewpart"> الاثنين / 5 مساءً </p>
+                            </div>
+                            <div class="col-md-3 text-center p-1">
+                                <h5 style="color: #3f0033;"> المتبقي </h5>
+                                <p class="pt-2" id="countnewpart"> 1 غسلة </p>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="wash-detail"> تفاصيل الغسلات </h3>
+                    <div class="table-rep-plugin">
+                        <div class="table-responsive mb-0 rounded" data-pattern="priority-columns">
+                            <table id="tech-companies-1" class="table table-striped">
+                                <thead>
+                                <tr class="mo-tr">
+                                    <th> رقم الغسلة </th>
+                                    <th> تاريخ الغسلة </th>
+                                    <th> الوقت / اليوم </th>
+                                    <th> حالة الغسلة </th>
+                                </tr>
+                                </thead>
+                                <tbody id="orderPartDetails">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="w-100 d-flex justify-content-end">
+                        <button type="button" class="btn stoped "> طلب تأجيل موعد </button>
+                        <button type="button" class="btn stoped  mx-2" data-bs-dismiss="modal"> إلغاء
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- end modal-content-->
+        </div>
+        <!-- end modal dialog-->
+    </div>
+
+
 @endsection
 @section('js')
     @include('admin.monthly_subscription.assets.js')
@@ -463,6 +521,7 @@
             var car_type2=$('#d_sub_type_id').val();
             var  car_blade_number=$('#a-car_blade_number').val();
             var day=$('#d_day').val();
+            var date=$('#a-date').val();
 
             $.ajax({
                 type: 'get',
@@ -478,7 +537,8 @@
                     car_type1:car_type1,
                     car_type2:car_type2,
                     car_blade_number:car_blade_number,
-                    day:day
+                    day:day,
+                    date:date,
                 },
 
                 success: function (res) {
@@ -486,7 +546,7 @@
                     if (res['status'] == true) {
                         $('#exampleModalScrollable').modal('toggle');
                         toastr.success('تم اضافة طلبك بنجاح');
-
+location.reload();
 
                     } else if (res['status'] == 'error') {
                 toastr.error('يرجي التاكد من البيانات');
@@ -495,17 +555,83 @@
                         toastr.success('يرجي التاكد من ');
                 },
                 error: function (data) {
-                    toastr.error('يرجي التاكد من البيانات');
+                    toastr.error('يرجي التاكد من ');
                 }
             });
         }));
 
 
+
     </script>
 
+<script>
+    $( ".orderDeatails" ).click(function() {
+       var id= $(this).attr('data-id');
+        $.ajax({
+            type: 'GET',
+            url: "{{route('admin.order.participation.details')}}",
+            data: {
+                id: id,
+            },
+
+            success: function (res) {
+                if (res['status'] == true) {
+                    var cartypes = ``;
+                    $(`#orderPartDetails`).html('');
+                        var status='جديدة';
+                        var icon='';
+                        var countnewpartorder=` ${res['count']}غسلة`;
+                    $('#countnewpart').html(countnewpartorder);
+                    $('#pricenewpart').html(`${res['order']['total_price']} SR`);
+                    $('#datenewpart').html(`${res['orders'][0]['wash_date']} `);
+                     $('#timenewpart').html(`${res['orders'][0]['day']}/${res['order']['order_time']}`);
+
+                    for (var i = 0; i < res['orders'].length; i++) {
+
+                        if(res['orders'][i]['status']=='done'){
+                            var status='تمت الخدمة';
+                            icon='<i class="fas fa-check-circle pe-1"></i> '
+                        }
+                      else  if(res['orders'][i]['status']=='wait'){
+                            var status='مجدولة ';
+
+                        }
+                   //   var days= getDay(res['orders'][i]['wash_date'])
+                        cartypes = `  <tr>
+                                    <td>الغسلة ${i}</td>
+                                    <td>${res['orders'][i]['wash_date']}</td>
+                                    <td> ${res['orders'][i]['day']}/${res['order']['order_time']}</td>
+                                    <td> ${icon} ${status} </td>
+                                </tr>`;
+                        $(`#orderPartDetails`).append(cartypes);
+
+                    }
+
+                } else if (res['status'] == false)
+                    toastr.error('عفوا هذا الاشتراك  ليس بة اي غسلات');
 
 
+            },
+            error: function (data) {
+                toastr.error('عفوا ');
+            }
+        });
 
+
+    });
+
+</script>
+
+<script>
+    $( ".getDataa" ).click(function() {
+        var date = $(this).attr('data-date');
+      //  alert(date);
+        var myUrl = "{{route('admin.participation.filterByDate')}}?month="+date+"";
+        window.location = myUrl
+
+    });
+
+</script>
 
 
 @endsection

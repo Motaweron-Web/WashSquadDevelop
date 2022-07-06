@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Order;
-use App\OrderSubscriptionDetails;
-use App\User;
+use App\Models\{
+    Order,OrderSubscriptionDetails,User
+};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -31,8 +31,8 @@ class MonthlySubscriptionController extends Controller
         $next_month = date('m', strtotime('+1 month', strtotime($year . '-' . $month . '-01')));
 
         ///////////////////////////////// end calender //////////////////////////
-        $orders=\App\Models\Order::latest()->paginate(15);
-
+        $betweenMonth = [date('Y-m',strtotime($request->month)).'-01',date('Y-m',strtotime($request->month)).'-'.date('t',strtotime($request->month))];
+        $orders=Order::whereBetween("date", $betweenMonth)->where('service_id',77)->latest()->get();
 
         return view('admin.monthly_subscription.index', compact('start_day',
             'number_of_day', 'prev_year', 'prev_month', 'next_year', 'next_month', 'year', 'month', 'request','orders'));
