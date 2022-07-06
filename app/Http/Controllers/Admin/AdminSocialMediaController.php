@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 class AdminSocialMediaController extends Controller
 {
     public function index(){
+        if(!checkPermission(31))
+            return view('admin.permission.index');
         $AppSettingSocials= Social::all();
 
         return view('admin.socialMedia.index', compact('AppSettingSocials'));
@@ -19,6 +21,8 @@ class AdminSocialMediaController extends Controller
 
 ########################################################################################3
     public function update($id ,Request $request){
+        if(!checkPermission(31))
+            return view('admin.permission.index');
         /// return 1;
         //  return 1;
         try {

@@ -13,9 +13,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class AppsController extends Controller
 {
+
     use PhotoTrait;
     public function index(Request $request){
-
+        if(!checkPermission(7))
+            return view('admin.permission.index');
         $fromDate = '';
         $toDate = '';
 
@@ -71,7 +73,8 @@ class AppsController extends Controller
 
 
     public function creat(){
-
+        if(!checkPermission(7))
+            return view('admin.permission.index');
         $Apps = User::get();
         return view('admin.apps.create',compact('Apps'));
     }
@@ -82,6 +85,8 @@ class AppsController extends Controller
     {
 //UserEmploy::create(['name'=>$request->name]);
   // return $request;
+        if(!checkPermission(7))
+            return view('admin.permission.index');
         $validator = \Validator::make($request->all(),
             [
                  'name' =>'required',
@@ -141,7 +146,8 @@ class AppsController extends Controller
 
 
  public function edit($id){
-
+     if(!checkPermission(7))
+         return view('admin.permission.index');
 
      $Apps = User::Selection2()->find($id);
 
@@ -155,7 +161,8 @@ class AppsController extends Controller
 
     public function update($id ,Request $request)
     {
-
+        if(!checkPermission(7))
+            return view('admin.permission.index');
         try {
 
             $Apps = User::Selection2()->find($id);
@@ -200,6 +207,8 @@ class AppsController extends Controller
     }
     public function export()
     {
+        if(!checkPermission(7))
+            return view('admin.permission.index');
         return Excel::download(new AppsController(), 'file.xlsx');
     }
 

@@ -17,7 +17,8 @@ class UserController extends Controller
 
     ########################################==index==##############################################3
     public function index(){
-
+        if(!checkPermission(20))
+            return view('admin.permission.index');
         $AppSettingDrivers= User::where('user_type',2)->latest()->get();
 
         return view('admin.AppSettingDrivers.index', compact('AppSettingDrivers'));
@@ -26,7 +27,8 @@ class UserController extends Controller
 ##################################==creat==###############################################
 
     public function creat (){
-
+        if(!checkPermission(20))
+            return view('admin.permission.index');
         $AppSettingDriver=User::where('user_type',2)->active()->get();
 
         return view('admin.AppSettingDrivers.creat',compact('AppSettingDriver'));
@@ -37,6 +39,8 @@ class UserController extends Controller
     ############################==store==##################################
 
     public function  store(AppSettingDriversRequest $request){
+        if(!checkPermission(20))
+            return view('admin.permission.index');
    // return $request ;
         try {
 
@@ -83,6 +87,8 @@ class UserController extends Controller
     ###################################== order_amount==#####################################
     /////////////////////////////////////////////////////////////////////////////////////////
     public function order_amount(Request $request){
+        if(!checkPermission(20))
+            return view('admin.permission.index');
         $rules=[
             'driver_id' => ['required','integer',Rule::exists('users','id')->where('user_type',2)],
             'month' => 'required',
@@ -147,6 +153,8 @@ class UserController extends Controller
     ###################################== order_review==#####################################
     /////////////////////////////////////////////////////////////////////////////////////////
     public function order_review(Request $request){
+        if(!checkPermission(20))
+            return view('admin.permission.index');
         $rules=[
             'driver_id' => ['required','integer',Rule::exists('users','id')->where('user_type',2)],
             'month' => 'required',
@@ -190,6 +198,8 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        if(!checkPermission(20))
+            return view('admin.permission.index');
         //return 1;
         try {
 
@@ -210,6 +220,8 @@ class UserController extends Controller
 
     public function update($id ,AppSettingDriversRequest $request){
      //   return 1;
+        if(!checkPermission(20))
+            return view('admin.permission.index');
 
         try {
 
@@ -267,7 +279,8 @@ class UserController extends Controller
 
     ###################################==destroy==############################################
     public function destroy($id){
-
+        if(!checkPermission(20))
+            return view('admin.permission.index');
         try {
 
 

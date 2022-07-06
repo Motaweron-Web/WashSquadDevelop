@@ -73,6 +73,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function distributerOrders(){
+        return $this->hasMany(Order::class,'distributor_employee_id');
+
+    }
+
+
     public function orders()
     {
         return $this->hasMany(Order::class,'user_id');

@@ -18,18 +18,24 @@ class ServiceController extends Controller
     //
     public function getservices()
     {
+        if(!checkPermission(17))
+            return view('admin.permission.index');
         $services = Service::where('level', 1)->get();
         return view('admin.home.services', compact('services'));
     }
 
     public function editservice($id)
     {
+        if(!checkPermission(17))
+            return view('admin.permission.index');
         $service = Service::find($id);
         return view('admin.home.service.update', compact('service'));
     }
 
     public function updateservice($id, Request $request)
     {
+        if(!checkPermission(17))
+            return view('admin.permission.index');
         $data = $request->all();
         $validator = \Validator::make($request->all(),
             [
@@ -89,7 +95,8 @@ class ServiceController extends Controller
 
     public function getsubserviceformainservice($id)
     {
-
+        if(!checkPermission(17))
+            return view('admin.permission.index');
         $subservices = Service::with('subsubservices')->where('parent_id', $id)->where('level', 2)->paginate(15);
         $service = Service::find($id);
         return view('admin.home.service.sub', compact('subservices', 'service'));
@@ -107,6 +114,8 @@ class ServiceController extends Controller
 
     public function editsubservice($id)
     {
+        if(!checkPermission(17))
+            return view('admin.permission.index');
         $servicesubservice = ServiceSubService::where('sub_service_id', $id)->get();
 
         $service = Service::find($id);
@@ -122,6 +131,8 @@ class ServiceController extends Controller
 
     public function createsubservice($id)
     {
+        if(!checkPermission(17))
+            return view('admin.permission.index');
         $carsizes = CarSize::get();
         $service = Service::find($id);
         $subfromsubservices = Service::where('level', 3)->get();
@@ -132,7 +143,8 @@ class ServiceController extends Controller
 
     public function getminsubservice()
     {
-
+        if(!checkPermission(18))
+            return view('admin.permission.index');
         $minsubservices = Service::with('subservices')->where('level', 3)->paginate(15);
         return view('admin.home.service.minsubservices.index', compact('minsubservices'));
 
@@ -140,6 +152,8 @@ class ServiceController extends Controller
 
     public function createminsubservice()
     {
+        if(!checkPermission(18))
+            return view('admin.permission.index');
         $carsizes = CarSize::get();
         $subservices = Service::where('level', 2)->get();
         $payments = Payment::get();
@@ -149,6 +163,8 @@ class ServiceController extends Controller
 
     public function editminsubservice($id)
     {
+        if(!checkPermission(18))
+            return view('admin.permission.index');
         $servicesubservice = ServiceSubService::where('sub_sub_service_id', $id)->get();
         $service = Service::find($id);
         $carsizes = CarSize::get();
@@ -162,6 +178,8 @@ class ServiceController extends Controller
 
     public function updatesubservice($id, Request $request)
     {
+        if(!checkPermission(17))
+            return view('admin.permission.index');
 
         $validator = \Validator::make($request->all(),
             [
@@ -247,6 +265,8 @@ class ServiceController extends Controller
 
     public function addsubservice($parentid, Request $request)
     {
+        if(!checkPermission(17))
+            return view('admin.permission.index');
         $validator = \Validator::make($request->all(),
             [
                 'ar_title' => 'required|string',
@@ -339,7 +359,8 @@ class ServiceController extends Controller
     public function updateminsubservice($id, Request $request)
     {
 
-
+        if(!checkPermission(18))
+            return view('admin.permission.index');
         $validator = \Validator::make($request->all(),
             [
                 'ar_title' => 'required|string',
@@ -431,7 +452,8 @@ class ServiceController extends Controller
 
     public function addminsubservice(Request $request)
     {
-
+        if(!checkPermission(18))
+            return view('admin.permission.index');
         $validator = \Validator::make($request->all(),
             [
                 'ar_title' => 'required|string',

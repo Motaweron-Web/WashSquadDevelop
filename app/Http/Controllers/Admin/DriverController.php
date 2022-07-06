@@ -10,6 +10,8 @@ class DriverController extends Controller
 {
     //
     public function getdriverorder(Request  $request){
+        if(!checkPermission(9))
+            return view('admin.permission.index');
         $fromDate='';
         $toDate='';
 

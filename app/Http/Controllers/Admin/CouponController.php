@@ -17,13 +17,16 @@ class CouponController extends Controller
 {
     public function getcoupons()
     {
+        if(!checkPermission(25))
+            return view('admin.permission.index');
         $coupons=Coupon::with('payments')->paginate(15);
-
 
         return view('admin.home.coupons.index',compact('coupons'));
 
     }
     public function createcoupon(){
+        if(!checkPermission(25))
+            return view('admin.permission.index');
         $payments=Payment::get();
         $services=Service::where('level',1)->get();
         return view('admin.home.coupons.create',compact('payments','services'));
@@ -45,7 +48,8 @@ class CouponController extends Controller
     }
 
     public function addcoupon(Request $request){
-
+        if(!checkPermission(25))
+            return view('admin.permission.index');
 
         $validator= Validator::make($request->all(),
             [

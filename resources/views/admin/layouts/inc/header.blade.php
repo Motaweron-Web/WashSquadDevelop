@@ -206,13 +206,15 @@
                         </div>
                     </div>
                 </div> -->
+                @if(checkSuperAdmin() )
+
                 <div class="d-inline-block">
                     <button type="button" class="btn header-item waves-effect">
-                        <a class=" d-block" href="#">
+                        <a class=" d-block" href="{{route('admin.setting')}}">
                             <i class="ri-settings-3-fill fa-2x align-middle me-1"></i> </a>
                     </button>
                 </div>
-
+                @endif
                 <div class="dropdown d-inline-block user-dropdown">
                     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

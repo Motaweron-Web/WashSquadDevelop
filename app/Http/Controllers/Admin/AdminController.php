@@ -29,6 +29,10 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
+
+
+if(!checkPermission(1))
+    return view('admin.permission.index');
         $fromDate='';
         $toDate='';
 
@@ -152,6 +156,9 @@ class AdminController extends Controller
 
     public function sales_and_operation(Request $request)
     {
+        if(!checkPermission(2))
+            return view('admin.permission.index');
+
         if (!$request->has('month') || !$request->has('type') || !in_array($request->type, ['month', 'filter'])) {
             return redirect(route('admin.sales_and_operation') . '?month=' . date('Y-m') . '&type=month');
         }//end fun

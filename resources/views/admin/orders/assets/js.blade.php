@@ -9,6 +9,15 @@
 <script src="{{url('assets/admin')}}/libs/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="{{url('assets/admin')}}/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 
+<script src="{{url('assets/admin')}}/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="{{url('assets/admin')}}/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="{{url('assets/admin')}}/libs/jszip/jszip.min.js"></script>
+<script src="{{url('assets/admin')}}/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="{{url('assets/admin')}}/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="{{url('assets/admin')}}/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="{{url('assets/admin')}}/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="{{url('assets/admin')}}/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+
 <!-- Responsive examples -->
 <script src="{{url('assets/admin')}}/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 <script src="{{url('assets/admin')}}/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
@@ -23,7 +32,7 @@
     $(document).on('click','.getData',function (e) {
         e.preventDefault();
         var date = $(this).data('date');
-        console.log(date);
+        // console.log(date);
         loadDay(date,true)
     });
 
@@ -61,10 +70,11 @@
                         next: "<i class='mdi mdi-chevron-left'>"
                     }
                 },
+                "dom": 'Brtip',
                 drawCallback: function (){
                     $(".dataTables_paginate > .pagination").addClass("pagination-rounded")
                 },
-                buttons: [ "excel",  ]
+                buttons: [ "excel"]
                 // "pdf"
             });
         })
@@ -105,7 +115,7 @@
             },
             success: function (data) {
                 if (data.status == 200){
-                    console.log(data.html)
+                    // console.log(data.html)
                     $('.calender').html(data.html)
                     window.history.pushState({path:newUrl},'',newUrl);
                 }else {
@@ -289,7 +299,7 @@
                 if (data==1){
                 toastr.warning('أنت اخترت خدمات و ماركات لم يتم تعريف سعرها بعد')
                 }else {
-                    console.log(data.price+'السعر')
+                    // console.log(data.price+'السعر')
                     $('#total-value').val(data.price)
                     $('#price_total').val(parseFloat($('#total-value').val())*number);
                     //alert($('#total-value').val())
@@ -325,7 +335,7 @@
         }
         var service_id=$('#service_id option:selected').val();
         var size_id=$('#sub_type_id option:selected').attr('data-size');
-        console.log([service_id,size_id])
+        // console.log([service_id,size_id])
         if (size_id==null){
             toastr.error('اختر البيانات أولا قبل تحديد عدد السيارات ')
         }else{
