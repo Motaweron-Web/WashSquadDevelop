@@ -15,6 +15,8 @@ class TimeController extends Controller
     //
     public  function index()
     {
+        if(!checkPermission(21))
+            return view('admin.permission.index');
         $periods=Period::paginate(15);
         $periodlimits=PeriodLimit::get();
         $sizes=CarSize::get();
@@ -23,12 +25,16 @@ class TimeController extends Controller
 
     }
     public  function  createtime(){
+        if(!checkPermission(21))
+            return view('admin.permission.index');
         $sizes=CarSize::get();
         $services=Service::where('level',1)->whereIn('id',[1,2,78])->get();
         return view('admin.home.times.create',compact('services','sizes'));
 
     }
     public  function addtime(Request $request){
+        if(!checkPermission(21))
+            return view('admin.permission.index');
 
         $ar_period_type='';
         $en_period_type='';
@@ -121,6 +127,8 @@ class TimeController extends Controller
     }
     public  function edittime($id)
     {
+        if(!checkPermission(21))
+            return view('admin.permission.index');
         $period=Period::with('services')->find($id);
          $periodlimits=PeriodLimit::where('period_id',$id)->get();
         $sizes=CarSize::get();
@@ -132,6 +140,8 @@ class TimeController extends Controller
 
     public function updatetime($id,Request $request)
     {
+        if(!checkPermission(21))
+        return view('admin.permission.index');
         PeriodLimit::where('period_id',$id)->delete();
 
         $ar_period_type='';

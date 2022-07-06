@@ -15,4 +15,7 @@ class Admin extends Model
         'password', 'remember_token',
     ];
 
+    public function permissions(){
+        return $this->belongsToMany(Permission::class,'admins_permissions','admin_id','permission_id');
+    }
 }

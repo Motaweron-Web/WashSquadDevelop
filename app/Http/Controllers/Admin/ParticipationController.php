@@ -119,7 +119,8 @@ return  response()->json(['status'=>true,'order'=>$order]);
     }
 
 public function participationByDate(Request $request)   {
-
+    if(!checkPermission(5))
+        return view('admin.permission.index');
     //////////////////////////// for calender ////////////////////////////
     $month = date('m', strtotime($request->month ?? date('Y-m')));
     $year = date('Y', strtotime($request->month ?? date('Y-m')));

@@ -17,7 +17,8 @@ class UserController extends Controller
 
     ########################################==index==##############################################3
     public function index(){
-
+        if(!checkPermission(20))
+            return view('admin.permission.index');
         $AppSettingDrivers= User::where('user_type',2)->latest()->get();
 
         return view('admin.AppSettingDrivers.index', compact('AppSettingDrivers'));
@@ -26,7 +27,8 @@ class UserController extends Controller
 ##################################==creat==###############################################
 
     public function creat (){
-
+        if(!checkPermission(20))
+            return view('admin.permission.index');
         $AppSettingDriver=User::where('user_type',2)->active()->get();
 
         return view('admin.AppSettingDrivers.creat',compact('AppSettingDriver'));
@@ -37,7 +39,13 @@ class UserController extends Controller
     ############################==store==##################################
 
     public function  store(AppSettingDriversRequest $request){
+<<<<<<< HEAD
+        if(!checkPermission(20))
+            return view('admin.permission.index');
+   // return $request ;
+=======
    //return $request ;
+>>>>>>> ef14173d7ff0ab5034afa139909b7597dd14b33e
         try {
 
             if (!$request->has('is_confirmed'))
@@ -194,6 +202,8 @@ class UserController extends Controller
     ###################################== order_amount==#####################################
     /////////////////////////////////////////////////////////////////////////////////////////
     public function order_amount(Request $request){
+        if(!checkPermission(20))
+            return view('admin.permission.index');
         $rules=[
             'driver_id' => ['required','integer',Rule::exists('users','id')->where('user_type',2)],
             'month' => 'required',
@@ -258,6 +268,8 @@ class UserController extends Controller
     ###################################== order_review==#####################################
     /////////////////////////////////////////////////////////////////////////////////////////
     public function order_review(Request $request){
+        if(!checkPermission(20))
+            return view('admin.permission.index');
         $rules=[
             'driver_id' => ['required','integer',Rule::exists('users','id')->where('user_type',2)],
             'month' => 'required',
@@ -297,7 +309,122 @@ class UserController extends Controller
 
 
 
+<<<<<<< HEAD
+############################==edit==##################################
+
+    public function edit($id)
+    {
+        if(!checkPermission(20))
+            return view('admin.permission.index');
+        //return 1;
+        try {
+
+            $AppSettingDriver = User::Selection()->find($id);
+            if (!$AppSettingDriver)
+                return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'هذا السائق غير موجود او ربما يكون محذوفا ']);
 
 
+            //  return  1;
+            return view('admin.AppSettingDrivers.edit', compact('AppSettingDriver'));
+
+        } catch (\Exception $exception) {
+            return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
+        }
+    }
+
+
+
+    public function update($id ,AppSettingDriversRequest $request){
+     //   return 1;
+        if(!checkPermission(20))
+            return view('admin.permission.index');
+
+        try {
+
+          $AppSettingDriver = User::Selection()->find($id);
+            //if (!$AppSettingDriver)
+                //return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'هذا السائق غير موجود او ربما يكون محذوفا ']);
+
+
+            DB::beginTransaction();
+         //   return 1;
+            //photo
+            if ($request->has('logo') ) {
+                $filePath = uploadImage('driver', $request->logo);
+            //    return 1;
+                User::where('id', $id)
+                    ->update([
+                        'logo' => $filePath,
+                    ]);
+            }
+            //return 1;
+
+////////////////////////////////////////////////////////////////////////////
+            if (!$request->has('is_confirmed'))
+                $request->request->add(['is_confirmed' => 0]);
+            else
+                $request->request->add(['is_confirmed' => 1]);
+            //////////////////////////////////////////////////////////////////////////////////////////
+//return 1;
+            $data = $request->except('_token', 'id','user_type');
+          //  return 1;
+            if ($request->has('password') && !is_null($request-> password)) {
+
+                $data['password'] = $request->password;
+            }
+          //  return 1;
+            User::where('id', $id)
+                ->update(
+                    $data
+                );
+           // return 1;
+////////////////////////////////////////////////////////////////////////////////////////
+            DB::commit();
+            return redirect()->route('admin.AppSettingDrivers')->with(['success' => 'تم التحديث بنجاح']);
+        } catch (\Exception $exception) {
+            return $exception;
+            DB::rollback();
+            return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
+        }
+
+    }
+
+
+
+
+
+    ###################################==destroy==############################################
+    public function destroy($id){
+        if(!checkPermission(20))
+            return view('admin.permission.index');
+        try {
+
+
+            $AppSettingDriver=User::find($id);
+            if (!$AppSettingDriver)
+                return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'هذا السائق غير موجود ']);
+
+            /////////////////// delete photo from folder///////
+         //   return 1;
+
+            $path = parse_url(  $AppSettingDriver->logo);
+
+            File::delete(public_path($path['path']));
+
+
+//return 1;
+
+
+            $AppSettingDriver->delete();
+            return redirect()->route('admin.AppSettingDrivers')->with(['success' => 'تم حذف السائق بنجاح']);
+
+        } catch (\Exception $ex) {
+            return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
+        }
+    }
+=======
+
+
+>>>>>>> ef14173d7ff0ab5034afa139909b7597dd14b33e
 }
 

@@ -2,13 +2,6 @@
 <project version="4">
   <component name="PublishConfigData" serverName="wash" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="rabie">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
       <paths name="wash">
         <serverdata>
           <mappings>

@@ -15,6 +15,8 @@ class ContactMailController extends Controller
         // return 1;
 
 
+        if(!checkPermission(35))
+            return view('admin.permission.index');
         $fromDate='';
         $toDate='';
 
@@ -96,6 +98,8 @@ class ContactMailController extends Controller
 
     public function  store(Request $request){
 
+        if(!checkPermission(35))
+            return view('admin.permission.index');
         $validator=\Validator::make($request->all(),
             [
                 'name'=>'required',
@@ -125,6 +129,8 @@ class ContactMailController extends Controller
 
     public function destroy($id){
 
+        if(!checkPermission(35))
+            return view('admin.permission.index');
         try {
             $ContactMail =  ContactMail::find($id);
 

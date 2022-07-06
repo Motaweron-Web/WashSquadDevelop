@@ -14,6 +14,9 @@ class AvailableTimesController extends Controller
      */
     public function index()
     {
+        if(!checkPermission(4))
+            return view('admin.permission.index');
+
         return view('admin.available_times.index');
     }
 

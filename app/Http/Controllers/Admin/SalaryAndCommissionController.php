@@ -14,6 +14,8 @@ class SalaryAndCommissionController extends Controller
     public function index(Request $request)
 
     {
+        if(!checkPermission(11))
+            return view('admin.permission.index');
         $fromDate = '';
         $toDate = '';
 
@@ -146,7 +148,8 @@ class SalaryAndCommissionController extends Controller
 
     public function update(Request $request)
     {
-
+        if(!checkPermission(11))
+            return view('admin.permission.index');
 
 //        if ($request->has('invoice')) {
 //            $file_name = $this->saveImage($request->invoice, 'assets/admin/images/employ');
@@ -211,7 +214,8 @@ public function edit($id,Request $request){
 
 }
     public function search($search,Request $request){
-
+        if(!checkPermission(11))
+            return view('admin.permission.index');
         $fromDate = '';
         $toDate = '';
 
@@ -270,6 +274,8 @@ public function edit($id,Request $request){
     }
     public function export()
     {
+        if(!checkPermission(11))
+            return view('admin.permission.index');
         return Excel::download(new SalaryAndCommissionController(), 'file.xlsx');
     }
 

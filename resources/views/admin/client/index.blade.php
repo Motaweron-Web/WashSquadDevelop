@@ -178,9 +178,11 @@ $services=\App\Models\Service::where('level',1)->get();
                         </a>
                     </td>
                     <td>
-                        <a href="#!" class="block">
+                        <a href="#!" id="status-{{$client->id}}"  @if($client->is_active==1) class="block " @else  class="block disabledEvent"   @endif>
                             <img src="{{asset('assets/images/icons/block.svg')}}" alt="">
                         </a>
+
+
                     </td>
                 </tr>
                 @endforeach
@@ -395,9 +397,33 @@ $services=\App\Models\Service::where('level',1)->get();
         });
 
         $('.addToSetting').on('click', function() {
-           var discount= $('#vib_discount').val();
+            var discount= $('#vib_discount').val();
+
+            $.ajax({
+                type:'GET',
+                url:"{{route('admin.change.vipDiscount')}}",
+                data:{
+                    discount:discount,
+                },
+
+                success:function(res){
+                    if(res['status']==true)
+                    {
+                        toastr.success('تم تحديث النسبة بنجاح');
 
 
+
+                    }
+                    else if(res['status']=='error')
+                        toastr.error('يرجي التاكد من البيانات');
+                    else
+                        location.reload();
+
+                },
+                error: function(data){
+                    alert('error');
+                }
+            });
         });
         $('.change_active').on('click', function() {
             var id=$(this).attr('data-id');
@@ -413,7 +439,7 @@ $services=\App\Models\Service::where('level',1)->get();
                     if(res['status']==true)
                     {
                         toastr.success('تم التحديث بنجاح');
-
+                        $(`#status-${id}`).toggleClass("disabledEvent");
                         if(res['data']==0)
                         {
                             element.css("background-color", "#CA3C3C");

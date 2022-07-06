@@ -10,7 +10,8 @@ class PurchaseController extends Controller
 {
 
     public  function index(Request $request){
-
+        if(!checkPermission(12))
+            return view('admin.permission.index');
         $fromDate='';
         $toDate='';
 
@@ -81,24 +82,30 @@ class PurchaseController extends Controller
 
     }
     public function create(Request $request){
+        if(!checkPermission(12))
+            return view('admin.permission.index');
         return view('admin.purchase.create');
     }
     public  function add(Request $request){
+        if(!checkPermission(12))
+            return view('admin.permission.index');
         $validator=\Validator::make($request->all(),
             [
                 'date'=>'required',
-                'name'=>'required|max:1000|min:5',
+                'name'=>'required',
                 'category'=>'required',
                 'value'=>'required|regex:/^\d+(\.\d{1,2})?$/',
                 'count'=>'required|regex:/^\d+(\.\d{1,2})?$/',
                 'payment_method'=>'required'
 
             ]);
+
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
+
         Purchase::create([
                 'date'=>$request->date,
                 'name'=>$request->name,
@@ -111,16 +118,20 @@ class PurchaseController extends Controller
        return redirect()->route('admin.purchase.index')->with('message','تمت الاضافة بنجاح');
     }
     public function edit($id){
+        if(!checkPermission(12))
+            return view('admin.permission.index');
         $purchase=Purchase::findOrFail($id);
         return view('admin.purchase.update',compact('purchase'));
 
 
     }
     public function update($id,Request $request){
+        if(!checkPermission(12))
+            return view('admin.permission.index');
         $validator=\Validator::make($request->all(),
             [
                 'date'=>'required',
-                'name'=>'required|max:1000|min:5',
+                'name'=>'required',
                 'category'=>'required',
                 'value'=>'required|regex:/^\d+(\.\d{1,2})?$/',
                 'count'=>'required|regex:/^\d+(\.\d{1,2})?$/',

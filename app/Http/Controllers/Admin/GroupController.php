@@ -12,6 +12,8 @@ class GroupController extends Controller
 {
     //
     public  function index(){
+        if(!checkPermission(19))
+            return view('admin.permission.index');
        $groups=Group::get();
        $places=Place::with('group','payments')->paginate(10);
         return view('admin.home.group.index',compact('groups','places'));
@@ -20,11 +22,14 @@ class GroupController extends Controller
     }
     public  function  createregion()
     {
+        if(!checkPermission(19))
+            return view('admin.permission.index');
         return view('admin.home.group.create');
 
     }
     public function addregion(Request $request){
-
+        if(!checkPermission(19))
+            return view('admin.permission.index');
         $validator=\Validator::make($request->all(),
             [
                 'name'=>'required|string|max:30',
@@ -43,13 +48,16 @@ class GroupController extends Controller
 
     public function  editregion($id)
     {
+        if(!checkPermission(19))
+            return view('admin.permission.index');
         $group=Group::find($id);
 
         return view('admin.home.group.update',compact('group'));
 
     }
     public function updateregion($id,Request $request){
-
+        if(!checkPermission(19))
+            return view('admin.permission.index');
         $validator=\Validator::make($request->all(),
             [
                 'name'=>'required|string|max:30',
@@ -69,6 +77,8 @@ class GroupController extends Controller
 
     }
      public function getregiondetails($id){
+         if(!checkPermission(19))
+             return view('admin.permission.index');
         $group=Group::with('days','periods')->find($id);
          $places=Place::with('group','payments')->where('group_id',$id)->get();
          $days=Day::get();
@@ -78,6 +88,8 @@ class GroupController extends Controller
 
      }
      public function deleteRegion($id){
+         if(!checkPermission(19))
+             return view('admin.permission.index');
         $group=Group::find($id);
         if($group==null){
             return redirect()->route('groups.index')->with('message','تم الحذف مسبقا');;

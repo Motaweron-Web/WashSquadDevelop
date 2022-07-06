@@ -16,6 +16,7 @@ class AdminDriverController extends Controller
      */
     public function index()
     {
+
         $users=User::where('user_type',2)->get();
         return view('admin.drivers.index')->with(['users'=>$users]);
     }

@@ -17,6 +17,8 @@ class MonthlySubscriptionController extends Controller
      */
     public function index(Request $request)
     {
+        if(!checkPermission(5))
+            return view('admin.permission.index');
         //////////////////////////// for calender ////////////////////////////
         $month = date('m', strtotime($request->month ?? date('Y-m')));
         $year = date('Y', strtotime($request->month ?? date('Y-m')));
@@ -109,6 +111,8 @@ class MonthlySubscriptionController extends Controller
      */
     public function edit($id)
     {
+        if(!checkPermission(5))
+            return view('admin.permission.index');
         $order = Order::with('wash_sub')->findOrFail($id);
         $leftWashes = OrderSubscriptionDetails::where([['order_id',$order->id],['status','!=','done']])->count();
         $days = ["Sat" => "السبت", "Sun" => "الأحد", "Mon" => "الإثنين", "Tue" => "الثلاثاء", "Wed" => "الأربعاء", "Thu" => "الخميس", "Fri" => "الجمعة"];

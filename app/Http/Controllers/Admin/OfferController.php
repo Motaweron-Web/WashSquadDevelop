@@ -13,6 +13,8 @@ class OfferController extends Controller
     public function getoffers()
     {
 
+        if(!checkPermission(27))
+            return view('admin.permission.index');
 
         $offers = Offer::with('service')->paginate(15);
         return view('admin.home.offers.index', compact('offers'));
@@ -20,6 +22,8 @@ class OfferController extends Controller
 
     public function createoffer()
     {
+        if(!checkPermission(27))
+            return view('admin.permission.index');
 
         $services = Service::where('level', 1)->get();
 
@@ -29,6 +33,8 @@ class OfferController extends Controller
 
     public function addoffer(Request $request)
     {
+        if(!checkPermission(27))
+            return view('admin.permission.index');
 
         $validator = \Validator::make($request->all(),
             [
@@ -82,13 +88,18 @@ class OfferController extends Controller
     }
     public function editoffer($id)
     {
-         $offer=Offer::with('service')->find($id);
+        if(!checkPermission(27))
+            return view('admin.permission.index');
+
+        $offer=Offer::with('service')->find($id);
         $services = Service::where('level', 1)->get();
 
         return view('admin.home.offers.update', compact('offer','services'));
 
     }
     public  function  updateoffer($id,Request $request){
+        if(!checkPermission(27))
+            return view('admin.permission.index');
 
         $validator = \Validator::make($request->all(),
             [
