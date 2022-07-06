@@ -38,8 +38,9 @@
 
                     <!-- <li class="menu-title">Layouts</li> -->
 
+
                     <li>
-                        <a href="apps.html" class="waves-effect">
+                        <a href="{{route('admin.Apps')}}" class="waves-effect">
                             <img src="{{url('assets/admin')}}/images/icons/baseline-business_center-24px.png" width="20px" height="20ox" alt="">
                             <span> التطبيقات </span>
                         </a>
@@ -70,20 +71,11 @@
                             <span> الشئون المالية </span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="arrive-leave.html"> الحضور والإنصراف </a></li>
                             <li><a href="{{route('admin.UserEmploy')}}"> بيانات الموظفين </a></li>
                             <li><a href="{{route('admin.SalariesCommissions')}}"> الرواتب والعمولة </a></li>
-                            <li><a href="car-reports.html"> تقارير السيارات </a></li>
-                            <li><a href="{{route('admin.carPerformance.index')}}"> تقارير اداء السيارات </a></li>
-                            <li><a href="apps-reports.html"> تقارير التطبيقات  </a></li>
-                            <li><a href="financial-collection.html"> التحصيل المالي </a></li>
-                            <li><a href="maintenance-reports.html"> تقارير الصيانة </a></li>
-                            <li><a href="burnings.html"> المحروقات </a></li>
-                            <li><a href="Administrative-expenses.html"> مصاريف إدارية </a></li>
-                            <li><a href="financial-obligations.html"> الإلتزامات المالية </a></li>
+
                             <li><a href="{{route('admin.purchase.index')}}">  مشتريات    </a></li>
-                            <li><a href="distressed-sums.html"> مبالغ متعثرة </a></li>
-                            <li><a href="warehouse.html"> المستودع </a></li>
+
                         </ul>
                     </li>
 
@@ -95,36 +87,18 @@
                             <span> التقارير المالية </span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="orders-reports.html"> تقارير الطلبات المنفذة  </a></li>
+                            <li><a href="{{route('admin.FinancialOrderReports')}}"> تقارير الطلبات   </a></li>
                             <li><a href="{{route('admin.cars.revenue')}}"> تقارير ايرادات السيارات    </a></li>
-
-                            <li><a href="Revenues.html"> الإيرادات </a></li>
-                            <li><a href="cost.html"> التكلفة </a></li>
-                            <li><a href="company-profitability.html"> ربحية الشركة </a></li>
-                            <li><a href="financial-savings.html">الإدخار</a></li>
-                            <li><a href="financial-grouth.html"> النمو </a></li>
+                            <li><a href="{{route('admin.carPerformance.index')}}"> تقارير اداء السيارات </a></li>
 
                         </ul>
                     </li>
-
                     <li>
-                        <a href="{{route('getallservices')}}" class="waves-effect">
-                            <img src="{{url('assets/admin')}}/images/icons/local_offer_black_24dp.png" width="20px" height="20ox" alt="">
-                            <span> الباقات </span>
+                        <a href="{{route('admin.get.clients')}}" class="waves-effect">
+                            <img src="{{asset('assets/admin/images/icons/clients.png')}}" alt="">
+                            <span> العملاء </span>
                         </a>
-
                     </li>
-
-                    <li>
-                        <a href="{{route('admin.appStatus')}}" class="waves-effect">
-                            <img src="{{url('assets/admin')}}/images/icons/local_offer_black_24dp.png" width="20px" height="20ox" alt="">
-                            <span> حالة الموقع </span>
-                        </a>
-
-                    </li>
-
-
-
 
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -154,6 +128,28 @@
                         </ul>
                     </li>
 
+<!--
+                    <li>
+                        <a href="{{route('getallservices')}}" class="waves-effect">
+                            <img src="{{url('assets/admin')}}/images/icons/local_offer_black_24dp.png" width="20px" height="20ox" alt="">
+                            <span> الباقات </span>
+                        </a>
+
+                    </li>
+                    -->
+<!--
+                    <li>
+                        <a href="{{route('admin.appStatus')}}" class="waves-effect">
+                            <img src="{{url('assets/admin')}}/images/icons/local_offer_black_24dp.png" width="20px" height="20ox" alt="">
+                            <span> حالة الموقع </span>
+                        </a>
+
+                    </li>
+-->
+
+
+
+
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <img src="{{asset('assets/admin/images/icons/baseline-shopping_cart-24px.svg')}}" alt="">
@@ -175,12 +171,7 @@
                         </ul>
                     </li>
 
-                    <li>
-                        <a href="{{route('admin.get.clients')}}" class="waves-effect">
-                            <img src="{{asset('assets/admin/images/icons/clients.png')}}" alt="">
-                            <span> العملاء </span>
-                        </a>
-                    </li>
+
 
 
 

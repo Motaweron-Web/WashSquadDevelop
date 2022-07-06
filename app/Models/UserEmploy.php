@@ -12,20 +12,10 @@ class UserEmploy extends Model
 
 
 
+public function users(){
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return $this->belongsTo(User::class,'userEmploy_id');
+}
 
 
     public function ScopeSelection($query){

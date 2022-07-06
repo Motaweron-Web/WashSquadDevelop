@@ -65,6 +65,7 @@ class ComposerStaticInitf996294bb94de303c9134ca4a60dfb96
         ),
         'W' => 
         array (
+            'Wialon\\' => 7,
             'Whoops\\' => 7,
             'Webmozart\\Assert\\' => 17,
         ),
@@ -225,6 +226,10 @@ class ComposerStaticInitf996294bb94de303c9134ca4a60dfb96
         'Yajra\\DataTables\\' => 
         array (
             0 => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src',
+        ),
+        'Wialon\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/wialon',
         ),
         'Whoops\\' => 
         array (

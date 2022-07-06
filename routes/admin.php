@@ -203,6 +203,7 @@ Route::get('get/driver-order','DriverController@getdriverorder')->name('getdrive
 
 
 Route::get('get/operation','OperationController@getoperation')->name('getoperation');
+Route::get('get/carTrack','OperationController@carTrack')->name('carTrack');
 
 Route::get('search/operation','OperationController@searcbymobile')->name('searcbymobile');
 
@@ -305,8 +306,10 @@ Route::get('get/daysForParticipation','ParticipationController@getDays')->name('
 
 Route::get('add/participation','ParticipationController@addParticipation')->name('admin.add.participation');
 
+Route::get('get/orderdetails','ParticipationController@getOrderDeatails')->name('admin.order.participation.details');
 
 
+Route::get('get/participation/filter/ByDate','ParticipationController@participationByDate')->name('admin.participation.filterByDate');
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

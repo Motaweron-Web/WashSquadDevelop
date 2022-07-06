@@ -17,7 +17,7 @@ $subscription = Order::where('date',$toDay)->where('service_id',77)->count();
 
 ?>
 <div id="btn-new-event"   data-date="<?php echo $toDay;?>"
-     class="getData  p-1 p-xl-2 <?php echo $toDay . $active;?>">
+     class="getDataaa  p-1 p-xl-2 <?php echo $toDay . $active;?>">
     <div class="day-div p-2">
         <div class=" p-2 pb-4 "><?php echo $i;?></div>
         <div class="todo-func ">

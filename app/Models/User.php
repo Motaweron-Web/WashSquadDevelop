@@ -50,7 +50,7 @@ class User extends Authenticatable
     public  function getLpgoAttribute($val){
         return($val !==null)?asset($val) :"";
     }
-   
+
 
 
 
@@ -88,4 +88,17 @@ class User extends Authenticatable
         return $this->hasMany(Order::class,'marketer_id');
     }
 
+    public function useremploy()
+    {
+        return $this->hasMany(UserEmploy::class,'userEmploy_id');
+    }
+
+//public function ScopeActive($query){
+//    return $query->where('active',1);
+//}
+
+
+    public function ScopeSelection2($query){
+        return $query->select('id','user_type','logo','full_name','created_at','IBN_number','ratio','is_active','Payment_method','main_packages');
+    }
 }
