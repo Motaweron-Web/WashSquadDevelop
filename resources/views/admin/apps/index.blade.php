@@ -67,11 +67,11 @@
     @foreach($Apps as $App)
                             <tr>
                                 <td>{{$App->name}} </td>
-                                <td> <img src="{{$App->logo}}" alt="" srcset=""> </td>
+                                <td> <img src="{{asset(''.$App->logo)}}" alt="" srcset=""> </td>
                                 <td> {{$App->created_at}} </td>
                                 <td> {{\App\Models\Order::where('user_id',$App->id)->count()}} </td>
                                 <td> {{\App\Models\Order::where('user_id',$App->id)->where('status',13)->count()}} </td>
-                                <td> {{\App\Models\Order::where('user_id',$App->id)->where('status',13)->count()}}  </td>
+                                <td> {{\App\Models\Order::where('user_id',$App->id)->where('status',5)->count()}}  </td>
                                 <td> {{\App\Models\Order::where('user_id',$App->id)->sum('total_price')}}</td>
                                 <td> {{$App->ratio}} </td>
                                 <td>

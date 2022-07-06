@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="fe36ea6d-afc5-4edf-b30c-6ef0761110bd" name="wash" url="http://145.14.153.189">
+        <fileTransfer host="145.14.153.189" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="629840e4-64b4-41b8-992d-62e458ca7a9c" name="rabie" url="http://212.107.17.225/">
+        <fileTransfer host="212.107.17.225" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

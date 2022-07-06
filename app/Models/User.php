@@ -39,12 +39,12 @@ class User extends Authenticatable
     #####################== driver ==###########################
 
     public function ScopeActive($query){
-        return $query->where('is_confirmed',1);
+        return $query->where('is_active',1);
     }
 
 
     public function ScopeSelection($query){
-        return $query->select('id','user_type','logo','full_name','driver_name','phone','password','name','commission' ,'worker_name','is_confirmed');
+        return $query->select('id','user_type','logo','full_name','driver_name','phone','password','name','commission' ,'worker_name','is_active');
     }
 
     public  function getLpgoAttribute($val){
@@ -107,4 +107,6 @@ class User extends Authenticatable
     public function ScopeSelection2($query){
         return $query->select('id','user_type','logo','full_name','created_at','IBN_number','ratio','is_active','Payment_method','main_packages');
     }
+
+
 }

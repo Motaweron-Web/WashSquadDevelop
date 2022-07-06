@@ -85,9 +85,9 @@ orders-table operation
                         <div class="d-flex align-items-center ">
                             <label class="form-label m-0"> تفعيل الحساب </label>
                             <div class="form-check form-switch ms-3">
-                                <input class="form-check-input"  value="1" name="is_confirmed"  id="wash" type="checkbox" role="switch"
+                                <input class="form-check-input"  value="1" name="is_active"  id="wash" type="checkbox" role="switch"
 
-                                       @if($AppSettingDriver -> is_confirmed == 1) checked @endif>
+                                       @if($AppSettingDriver -> is_active == 1) checked @endif>
                             </div>
                         </div>
 
@@ -123,6 +123,13 @@ orders-table operation
                 console.log(formData);
             });
         });
+    </script>
+    <script>
+
+
+        @if($errors->any())
+        toastr.error('يرحي التاكد من البيانت المدخلة');
+        @endif
     </script>
 
 @endsection
