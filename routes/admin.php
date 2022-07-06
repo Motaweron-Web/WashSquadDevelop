@@ -416,6 +416,7 @@ Route::get('add/participation','ParticipationController@addParticipation')->name
             Route::resource('orders', 'AdminOrderController');
             Route::get('orders-dailyOrder', 'AdminOrderController@dailyOrder')->name('orders.dailyOrder');
             Route::POST('orders-dailyOrder-save', 'AdminOrderController@dailyOrderSave')->name('orders.dailyOrder.save');
+            Route::POST('dailyOrderDistributionStore', 'AdminOrderController@dailyOrderDistributionStore')->name('dailyOrderDistributionStore');
             Route::get('orders-showInformation/{id}', 'AdminOrderController@showInformation')->name('orders.showInformation');
             Route::get('orders-anotherMonth', 'AdminOrderController@anotherMonth')->name('orders.anotherMonth.index');
             Route::post('orders-driver-insert', 'AdminOrderController@insertDriver')->name('orders.driver.insert');

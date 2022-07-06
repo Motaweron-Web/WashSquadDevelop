@@ -7,6 +7,10 @@ use App\Models\CarType;
 use App\Models\DailyOrderLimit;
 use App\Models\DailyOrderLimitData;
 use App\Models\DateTime;
+use App\Models\DistributionDay;
+use App\Models\DistributionDayDriver;
+use App\Models\DistributionDayGroup;
+use App\Models\Group;
 use App\Models\MonthService;
 use App\Models\Notification;
 use App\Models\Order;
@@ -527,9 +531,9 @@ class AdminOrderController extends Controller
      */
     public function dailyOrder(Request $request)
     {
-        $places = Place::all();
-        $services = Service::where('level', 1)->get();
-        return view('admin.orders.daily_order.create', compact('places', 'services'));
+        $places_groups = Group::all();
+        $drivers       = User::where('user_type', 2)->where('is_active', 1)->get();
+        return view('admin.orders.daily_order.create', compact('places_groups', 'drivers'));
     }//end fun
 
     public function dailyOrderSave(Request $request)
@@ -560,6 +564,39 @@ class AdminOrderController extends Controller
         }
         return response(['status' => 200, 'message' => 'تم الحفظ بنجاح']);
     }//end fun
+
+
+    public function dailyOrderDistributionStore(Request $request)
+    {
+        $currentDate = date("Y-m-d");
+        $request->validate([
+            'day'         => 'required|after:yesterday|unique:distribution_days,day',
+            'group_id'    => 'required|exists:placesgroups,id',
+        ], [
+            'day.after'    => "يجب إدخال تاريخ يبدأ من اليوم {$currentDate}",
+            'day.required' => "يجب ادخال يوم ",
+            'group_id.required' => "يجب ادخال موقع تغطية واحد علي الاقل"
+        ]);
+        $day = DistributionDay::create($request->only('day'));
+        foreach ($request->group_id as $group){
+            $DistributionDayGroup = DistributionDayGroup::create([
+                'day_id'   => $day->id,
+                'group_id' => $group,
+                'status'   => '1',
+            ]);
+            foreach ($request->input($group.'_user_id') as $driver_id){
+                DistributionDayDriver::create([
+                    'day_id'     => $day->id,
+                    'group_id'   => $group,
+                    'user_id'    => $driver_id
+                ]);
+            }
+        }
+
+        return response(['status' => 200, 'message' => 'تم الحفظ بنجاح']);
+
+    }
+
 
     public function showInformation($id)
     {
