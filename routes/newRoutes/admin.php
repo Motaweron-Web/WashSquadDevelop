@@ -125,7 +125,7 @@ Route::group(['prefix'=>'apps'],function(){
     Route::get('creat','AppsController@creat')->name('admin.Apps.creat');
     Route::post('store','AppsController@store')->name('admin.Apps.store');
     Route::get('edit/{id}','AppsController@edit')->name('admin.Apps.edit');
-    Route::post('update','AppsController@update')->name('admin.Apps.update');
+    Route::post('update/{id}','AppsController@update')->name('admin.Apps.update');
     Route::get('delete/{id}','AppsController@destroy')->name('admin.Apps.delete');
     Route::get('excel','AppsController@export')->name('admin.Apps.excel');
 

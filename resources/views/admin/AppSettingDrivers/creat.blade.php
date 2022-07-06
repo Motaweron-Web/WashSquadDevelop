@@ -65,7 +65,7 @@
 
                 <div class="mb-3" >
                     <label class="form-label"> كلمة المرور </label>
-                    <input class="form-control" type="password" name="password">
+                    <input class="form-control" type="password" name="password" placeholder="**********" >
                 </div>
                 <div class="mb-3">
                     <label class="form-label"> اسم العامل </label>
@@ -81,7 +81,7 @@
                 <div class="d-flex align-items-center ">
                     <label class="form-label m-0"> تفعيل الحساب </label>
                     <div class="form-check form-switch ms-3">
-                        <input class="form-check-input" name="is_confirmed" value="1" id="wash" type="checkbox"
+                        <input class="form-check-input" name="is_active" value="1" id="wash" type="checkbox"
                                role="switch" checked>
                     </div>
                 </div>
@@ -115,6 +115,12 @@
         });
     </script>
 
+<script>
 
+
+    @if($errors->any())
+    toastr.error('يرحي التاكد من البيانت المدخلة');
+    @endif
+</script>
 @endsection
 

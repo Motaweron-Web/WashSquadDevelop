@@ -37,7 +37,7 @@ class UserController extends Controller
     ############################==store==##################################
 
     public function  store(AppSettingDriversRequest $request){
-   // return $request ;
+   //return $request ;
         try {
 
             if (!$request->has('is_confirmed'))
@@ -63,7 +63,7 @@ class UserController extends Controller
                 'driver_name' => $request->driver_name,
                 'commission' => $request->commission,
                 'phone' => $request->phone,
-                'is_confirmed' => $request->is_confirmed,
+                'is_active' => $request->is_active,
                 'logo' => $filePath,
                 'password' => bcrypt($request->password),
                 'worker_name' => $request->worker_name,
@@ -74,12 +74,123 @@ class UserController extends Controller
             return redirect()->route('admin.AppSettingDrivers')->with(['success' => 'تم الحفظ بنجاح']);
 
         } catch (\Exception $ex) {
+           return  $ex;
             return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
 
         }
 
     }
 
+
+############################==edit==##################################
+
+    public function edit($id)
+    {
+        //return 1;
+        try {
+
+
+            $AppSettingDriver = User::Selection()->find($id);
+            if (!$AppSettingDriver)
+                return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'هذا السائق غير موجود او ربما يكون محذوفا ']);
+
+
+            //  return  1;
+            return view('admin.AppSettingDrivers.edit', compact('AppSettingDriver'));
+
+        } catch (\Exception $exception) {
+            return $exception;
+            return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
+        }
+    }
+
+
+
+    public function update($id ,AppSettingDriversRequest $request){
+     //   return 1;
+
+        try {
+
+          $AppSettingDriver = User::Selection()->find($id);
+            //if (!$AppSettingDriver)
+                //return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'هذا السائق غير موجود او ربما يكون محذوفا ']);
+
+
+            DB::beginTransaction();
+         //   return 1;
+            //photo
+            if ($request->has('logo') ) {
+                $filePath = uploadImage('driver', $request->logo);
+            //    return 1;
+                User::where('id', $id)
+                    ->update([
+                        'logo' => $filePath,
+                    ]);
+            }
+            //return 1;
+
+////////////////////////////////////////////////////////////////////////////
+            if (!$request->has('is_confirmed'))
+                $request->request->add(['is_confirmed' => 0]);
+            else
+                $request->request->add(['is_confirmed' => 1]);
+            //////////////////////////////////////////////////////////////////////////////////////////
+//return 1;
+            $data = $request->except('_token', 'id','user_type');
+          //  return 1;
+            if ($request->has('password') && !is_null($request-> password)) {
+
+                $data['password'] = $request->password;
+            }
+          //  return 1;
+            User::where('id', $id)
+                ->update(
+                    $data
+                );
+           // return 1;
+////////////////////////////////////////////////////////////////////////////////////////
+            DB::commit();
+            return redirect()->route('admin.AppSettingDrivers')->with(['success' => 'تم التحديث بنجاح']);
+        } catch (\Exception $exception) {
+            return $exception;
+            DB::rollback();
+            return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
+        }
+
+    }
+
+
+
+
+
+    ###################################==destroy==############################################
+    public function destroy($id){
+
+        try {
+
+
+            $AppSettingDriver=User::find($id);
+            if (!$AppSettingDriver)
+                return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'هذا السائق غير موجود ']);
+
+            /////////////////// delete photo from folder///////
+         //   return 1;
+
+            $path = parse_url(  $AppSettingDriver->logo);
+
+            File::delete(public_path($path['path']));
+
+
+//return 1;
+
+
+            $AppSettingDriver->delete();
+            return redirect()->route('admin.AppSettingDrivers')->with(['success' => 'تم حذف السائق بنجاح']);
+
+        } catch (\Exception $ex) {
+            return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
+        }
+    }
     ###################################== order_amount==#####################################
     /////////////////////////////////////////////////////////////////////////////////////////
     public function order_amount(Request $request){
@@ -186,112 +297,7 @@ class UserController extends Controller
 
 
 
-############################==edit==##################################
-
-    public function edit($id)
-    {
-        //return 1;
-        try {
-
-            $AppSettingDriver = User::Selection()->find($id);
-            if (!$AppSettingDriver)
-                return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'هذا السائق غير موجود او ربما يكون محذوفا ']);
 
 
-            //  return  1;
-            return view('admin.AppSettingDrivers.edit', compact('AppSettingDriver'));
-
-        } catch (\Exception $exception) {
-            return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
-        }
-    }
-
-
-
-    public function update($id ,AppSettingDriversRequest $request){
-     //   return 1;
-
-        try {
-
-          $AppSettingDriver = User::Selection()->find($id);
-            //if (!$AppSettingDriver)
-                //return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'هذا السائق غير موجود او ربما يكون محذوفا ']);
-
-
-            DB::beginTransaction();
-         //   return 1;
-            //photo
-            if ($request->has('logo') ) {
-                $filePath = uploadImage('driver', $request->logo);
-            //    return 1;
-                User::where('id', $id)
-                    ->update([
-                        'logo' => $filePath,
-                    ]);
-            }
-            //return 1;
-
-////////////////////////////////////////////////////////////////////////////
-            if (!$request->has('is_confirmed'))
-                $request->request->add(['is_confirmed' => 0]);
-            else
-                $request->request->add(['is_confirmed' => 1]);
-            //////////////////////////////////////////////////////////////////////////////////////////
-//return 1;
-            $data = $request->except('_token', 'id','user_type');
-          //  return 1;
-            if ($request->has('password') && !is_null($request-> password)) {
-
-                $data['password'] = $request->password;
-            }
-          //  return 1;
-            User::where('id', $id)
-                ->update(
-                    $data
-                );
-           // return 1;
-////////////////////////////////////////////////////////////////////////////////////////
-            DB::commit();
-            return redirect()->route('admin.AppSettingDrivers')->with(['success' => 'تم التحديث بنجاح']);
-        } catch (\Exception $exception) {
-            return $exception;
-            DB::rollback();
-            return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
-        }
-
-    }
-
-
-
-
-
-    ###################################==destroy==############################################
-    public function destroy($id){
-
-        try {
-
-
-            $AppSettingDriver=User::find($id);
-            if (!$AppSettingDriver)
-                return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'هذا السائق غير موجود ']);
-
-            /////////////////// delete photo from folder///////
-         //   return 1;
-
-            $path = parse_url(  $AppSettingDriver->logo);
-
-            File::delete(public_path($path['path']));
-
-
-//return 1;
-
-
-            $AppSettingDriver->delete();
-            return redirect()->route('admin.AppSettingDrivers')->with(['success' => 'تم حذف السائق بنجاح']);
-
-        } catch (\Exception $ex) {
-            return redirect()->route('admin.AppSettingDrivers')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
-        }
-    }
 }
 
