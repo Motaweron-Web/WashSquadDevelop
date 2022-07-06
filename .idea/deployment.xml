@@ -12,7 +12,7 @@
       <paths name="wash">
         <serverdata>
           <mappings>
-            <mapping deploy="/public_html/dashboard" local="$PROJECT_DIR$" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

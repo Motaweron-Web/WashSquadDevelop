@@ -66,6 +66,7 @@ class SalaryAndCommissionController extends Controller
 
 
         $SalaryAndcommissions = SalaryAndcommission::whereBetween("created_at", $betweenMonth)->Selection()->paginate(10);
+      //  return $SalaryAndcommissions[0];
         return view('admin.Salaries-commissions.index', compact('SalaryAndcommissions', 'request'));
 
     }
@@ -126,6 +127,7 @@ class SalaryAndCommissionController extends Controller
                 'invoice' => $request->invoice,
                 'borrow' => $request->borrow,
                 'commission' => $request->commission,
+                'total'=>$request->total,
 
             ]);
 
@@ -271,5 +273,31 @@ public function edit($id,Request $request){
         return Excel::download(new SalaryAndCommissionController(), 'file.xlsx');
     }
 
+
+    public function totalSalary($id,Request $request){
+        $UserSalary = UserEmploy::Selection()->find($id);
+
+/////////////////////////////////
+///
+///
+///
+///
+
+
+        if ($request->has('file')) {
+
+            $file_name = $this->saveImage($request->file, 'assets/admin/images/employ');
+            $photoPass = 'assets/admin/images/employ' . $file_name;
+            $UserSalary->update(['file' => $photoPass]);
+
+
+            $data = $request->except('_token', 'id','file');
+
+            //  return 1;
+            $UserSalary->update(
+                $data
+            );
+        }
+    }
 }
 
