@@ -6,11 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\CouponPaymente;
 use App\Models\CouponService;
 use App\Models\Coupon;
+use App\Models\CouponUser;
+use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Service;
 use App\Models\ServicePayment;
 use App\Models\ServiceSubService;
+use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class CouponController extends Controller
@@ -121,5 +125,31 @@ class CouponController extends Controller
 
         }
      return redirect()->route('getcoupons')->with('message','تم التعديل بنجاح');
+    }
+    public function couponDetails(Request $request){
+        $coupon=Coupon::find($request->id);
+        if($coupon==null)
+            return response()->json(['status'=>false]);
+             $salaries=Order::where('coupon_serial',$request->id)->sum('total_price');
+             $numberOfUses=CouponUser::where('coupon_id',$request->id)->count();
+             $numberOfUsers= CouponUser::where('coupon_id',$request->id)->distinct()
+                 ->count('user_id');
+        return response()->json(['status'=>true,'salaries'=>$salaries,'coupon'=>$coupon,'numberOfUses'=>$numberOfUses,'numberOfUsers'=>$numberOfUsers]);
+
+    }
+    public function couponDetailsByDate(Request $request){
+        $toDate = date("Y-m-d ");
+        $fromDate=$request->date;
+        $betweenDate = [$fromDate, $toDate];
+        // $orders=Or::whereBetween('date',$betweenDate)->paginate(10);
+        $coupon=Coupon::find($request->id);
+        if($coupon==null)
+            return response()->json(['status'=>false]);
+        $salaries=Order::whereBetween('date',$betweenDate)->where('coupon_serial',$request->id)->sum('total_price');
+        $numberOfUses=CouponUser::whereBetween('created_at',$betweenDate)->where('coupon_id',$request->id)->count();
+        $numberOfUsers= CouponUser::whereBetween('created_at',$betweenDate)->where('coupon_id',$request->id)->distinct()
+            ->count('user_id');
+        return response()->json(['status'=>true,'salaries'=>$salaries,'numberOfUses'=>$numberOfUses,'numberOfUsers'=>$numberOfUsers]);
+
     }
 }

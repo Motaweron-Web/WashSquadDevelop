@@ -15,19 +15,15 @@ use Maatwebsite\Excel\Facades\Excel;
 class AppsController extends Controller
 {
 
-<<<<<<< HEAD
+
     use PhotoTrait;
     public function index(Request $request){
         if(!checkPermission(7))
             return view('admin.permission.index');
-=======
     //use App\traits;
 
-    use PhotoTrait;
-    public function index(Request $request){
 
 
->>>>>>> ef14173d7ff0ab5034afa139909b7597dd14b33e
         $fromDate = '';
         $toDate = '';
 
@@ -83,15 +79,14 @@ class AppsController extends Controller
 
 
     public function creat(){
-<<<<<<< HEAD
+
         if(!checkPermission(7))
             return view('admin.permission.index');
         $Apps = User::get();
-=======
+
 
         $Apps = User::active()->get();
 
->>>>>>> ef14173d7ff0ab5034afa139909b7597dd14b33e
         return view('admin.apps.create',compact('Apps'));
     }
 
@@ -100,13 +95,10 @@ class AppsController extends Controller
     public function store(Request $request)
     {
 //UserEmploy::create(['name'=>$request->name]);
-<<<<<<< HEAD
   // return $request;
         if(!checkPermission(7))
             return view('admin.permission.index');
-=======
 // return $request;
->>>>>>> ef14173d7ff0ab5034afa139909b7597dd14b33e
         $validator = \Validator::make($request->all(),
             [
                  'name' =>'required',
@@ -191,10 +183,8 @@ class AppsController extends Controller
 
     public function update(Request $request,$id)
     {
-<<<<<<< HEAD
         if(!checkPermission(7))
             return view('admin.permission.index');
-=======
  //  return $request;
 
         $validator = \Validator::make($request->all(),
@@ -217,7 +207,6 @@ class AppsController extends Controller
         }
 
 
->>>>>>> ef14173d7ff0ab5034afa139909b7597dd14b33e
         try {
 
             $Apps = User::Selection2()->find($id);

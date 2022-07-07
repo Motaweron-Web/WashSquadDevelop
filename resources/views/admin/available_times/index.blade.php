@@ -46,16 +46,16 @@
                 <div class="modal-body">
                     <div class="mod-content">
                         <form action="">
-                            <div action="#" class="dropzone">
-                                <div class="fallback">
-                                    <input name="file" type="file">
-                                </div>
-                                <div class="dz-message needsclick">
-                                    <div class="">
-                                        <i class="display-6 fas mo-icon fa-user"></i>
-                                    </div>
-                                </div>
-                            </div>
+{{--                            <div action="#" class="dropzone">--}}
+{{--                                <div class="fallback">--}}
+{{--                                    <input name="file" type="file">--}}
+{{--                                </div>--}}
+{{--                                <div class="dz-message needsclick">--}}
+{{--                                    <div class="">--}}
+{{--                                        <i class="display-6 fas mo-icon fa-user"></i>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                             <div class="row pt-4">
                                 <div class="col-md-6">
                                     <div class="mb-3">

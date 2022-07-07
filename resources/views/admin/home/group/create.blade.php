@@ -5,7 +5,7 @@
     <!-- breadcrumb -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <ol class="breadcrumb ">
-            <li class="breadcrumb-item"> <a href="app_setting_regions.html"> المجموعات </a> </li>
+            <li class="breadcrumb-item"> <a href="{{route('groups.index')}}"> المجموعات </a> </li>
             <li class="breadcrumb-item active"> <a href="#!"> اضافة  </a> </li>
         </ol>
         <button class="btn btn-dark" onclick="history.back()"> عودة </button>

@@ -179,7 +179,7 @@
         var options = {
             series: [{
                 name: 'Order',
-                data: [500, 430, 348]
+                data: [@foreach($appsRevenue as $app)  {{count($app->orders)}},     @endforeach]
             }],
             chart: {
                 type: 'bar',
@@ -198,7 +198,7 @@
                 enabled: false
             },
             xaxis: {
-                categories: ['Soror', 'gaseel', 'carspa'],
+                categories: [@foreach($appsRevenue as $app)  {{$app->name}},     @endforeach],
             }
         };
         var chart = new ApexCharts(document.querySelector("#top-apps-chart"), options);
@@ -428,7 +428,7 @@
                                     <div class="flex-grow-1 overflow-hidden d-flex justify-content-between">
                                         <h5 class="font-size-14 mb-1"> {{$group->name}} </h5>
                                         <p class="text-truncate mb-0">
-                                           {{count($group->users)/$count*100}}%
+                                           {{ round( count($group->users)/$count*100,2)}}%
                                         </p>
                                     </div>
                                 </div>

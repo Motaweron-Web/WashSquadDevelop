@@ -24,6 +24,11 @@ Route::group(['prefix'=>'app_setting_drivers'],function(){
     Route::get('delete/{id}','UserController@destroy')->name('admin.AppSettingDrivers.delete');
 });
 
+
+Route::get('get/details/appDriver','UserController@driverDetails')->name('admin.driverDetails');
+Route::get('get/details/appDriver/ByDate','UserController@driverDetailsByDate')->name('admin.driverDetailsByDate');
+
+
 ########################################== terms ==################################################
 
 Route::group(['prefix'=>'app_setting_terms'],function(){
@@ -285,6 +290,10 @@ Route::get('create/coupon','CouponController@createcoupon')->name('createcoupon'
 Route::post('add/coupon','CouponController@addcoupon')->name('addcoupon');
 
 Route::get('change/couponestatus','CouponController@changecouponstatus')->name('changecouponstatus');
+Route::get('show/couponDetails','CouponController@couponDetails')->name('admin.couponDetails');
+
+Route::get('show/couponDetailsByDate','CouponController@couponDetailsByDate')->name('admin.couponDetailsByDate');
+
 
 //////////////////////////////////////////////  Notifications ////////////////////////////////////////////// ///////////////////
 
@@ -482,7 +491,7 @@ Route::get('financialOrderReport/searchByDate/{date}','FinancelOrderController@s
 Route::get('financialOrderReport/searchByOrderStatus/{orderStatus}','FinancelOrderController@searchByOrderStatus')->name('admin.financialOrderReport.searchByOrderStatus');
 
 
-
+///////////////////////////////////////////////
 
 
 

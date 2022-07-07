@@ -130,16 +130,16 @@ if(!checkPermission(1))
                 if (!$users)
                     $users +=1;
 
-               $mans=User::where('gender',1)->whereHas('orders')->count();
-               $womens=User::where('gender',2)->whereHas('orders')->count();
+               $mans=User::where('gender',1)->whereHas('orders')->whereBetween("created_at", $betweenMonth)->count();
+               $womens=User::where('gender',2)->whereHas('orders')->whereBetween("created_at", $betweenMonth)->count();
                $totalman=$mans /$users * 100 ;
                $totalwomen=$womens /$users * 100;
                 $groups=Group::get();
         $newOrders=Order::whereBetween("date", $betweenMonth)->where('status','1')->count();
         $cancelOrders=Order::whereBetween("date", $betweenMonth)->where('status','5')->count();
         $finishOrders=Order::whereBetween("date", $betweenMonth)->where('status','13')->count();
-
-        return view('admin.home.dashboard',compact('groups','newOrders','cancelOrders','finishOrders','request','places','allorders','finalandroid','finalios','finalweb','totalman','totalwomen'))->with([
+        $appsRevenue = User::where('user_type',4)->whereBetween("created_at", $betweenMonth)->get();
+        return view('admin.home.dashboard',compact('groups','newOrders','appsRevenue','cancelOrders','finishOrders','request','places','allorders','finalandroid','finalios','finalweb','totalman','totalwomen'))->with([
 
             "setting" => $setting,
             'orders'=>$orders ,
