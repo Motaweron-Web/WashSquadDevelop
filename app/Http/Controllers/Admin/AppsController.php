@@ -11,11 +11,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
+
 class AppsController extends Controller
 {
+
+<<<<<<< HEAD
+    use PhotoTrait;
+    public function index(Request $request){
+        if(!checkPermission(7))
+            return view('admin.permission.index');
+=======
+    //use App\traits;
+
     use PhotoTrait;
     public function index(Request $request){
 
+
+>>>>>>> ef14173d7ff0ab5034afa139909b7597dd14b33e
         $fromDate = '';
         $toDate = '';
 
@@ -71,8 +83,15 @@ class AppsController extends Controller
 
 
     public function creat(){
-
+<<<<<<< HEAD
+        if(!checkPermission(7))
+            return view('admin.permission.index');
         $Apps = User::get();
+=======
+
+        $Apps = User::active()->get();
+
+>>>>>>> ef14173d7ff0ab5034afa139909b7597dd14b33e
         return view('admin.apps.create',compact('Apps'));
     }
 
@@ -81,7 +100,13 @@ class AppsController extends Controller
     public function store(Request $request)
     {
 //UserEmploy::create(['name'=>$request->name]);
+<<<<<<< HEAD
   // return $request;
+        if(!checkPermission(7))
+            return view('admin.permission.index');
+=======
+// return $request;
+>>>>>>> ef14173d7ff0ab5034afa139909b7597dd14b33e
         $validator = \Validator::make($request->all(),
             [
                  'name' =>'required',
@@ -102,34 +127,45 @@ class AppsController extends Controller
 //return $request;
 //return 1;
         try {
+//            if ($request->has('logo')) {
+//                $file_name = $this->saveImage($request->logo, 'assets/admin/images/apps');
+//                $photoPass = 'assets/admin/images/apps' . $file_name;
+//            }
+
+
+
+            $filePath = "";
+
             if ($request->has('logo')) {
-                $file_name = $this->saveImage($request->logo, 'assets/admin/images/apps');
-                $photoPass = 'assets/admin/images/apps' . $file_name;
+                $filePath = uploadImage('apps', $request->logo);
             }
+
             if (!$request->has('is_active'))
-                $request['is_active']=1;
-            else
                 $request['is_active']=0;
+            else
+                $request['is_active']=1;
 
             $Apps= User::create([
 
                 'name' => $request->name,
-
+                'full_name' => $request->name,
+                 'user_type'=>4,
                 'IBN_number' => $request->IBN_number,
                 'is_active' => $request->is_active,
                 'created_at' => $request->created_at,
-                'logo' => $request->logo,
+                'logo' => $filePath,
                 'ratio' => $request->ratio,
+
 
                 'Payment_method'=>json_encode($request->Payment_method),
                 'main_packages'=>json_encode($request->main_packages),
             ]);
 
-//return 1;
+//return $Apps;
             return redirect()->route('admin.Apps')->with(['success' => 'تم الحفظ بنجاح']);
 
         } catch (\Exception $ex) {
-           // return $ex;
+       //  return $ex;
             return redirect()->route('admin.Apps')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
 
         }
@@ -141,11 +177,11 @@ class AppsController extends Controller
 
 
  public function edit($id){
-
+     if(!checkPermission(7))
+         return view('admin.permission.index');
 
      $Apps = User::Selection2()->find($id);
-
-                return view('admin.apps.edit', compact('Apps'));
+           return view('admin.apps.edit', compact('Apps'));
 
 
     }
@@ -153,20 +189,49 @@ class AppsController extends Controller
 
 
 
-    public function update($id ,Request $request)
+    public function update(Request $request,$id)
     {
+<<<<<<< HEAD
+        if(!checkPermission(7))
+            return view('admin.permission.index');
+=======
+ //  return $request;
 
+        $validator = \Validator::make($request->all(),
+            [
+                'name' =>'required',
+                'full_name' =>'required',
+                'IBN_number'=>'required',
+                'created_at'=>'required',
+                'IBN_number'=>'required',
+                'logo'=>'required',
+                'ratio'=>'required',
+                'Payment_method'=>'required',
+
+                'main_packages'=>'required',
+            ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
+>>>>>>> ef14173d7ff0ab5034afa139909b7597dd14b33e
         try {
 
             $Apps = User::Selection2()->find($id);
 
-            DB::beginTransaction(); // بيبدأ بيه الى تحت
-            //photo
+//            DB::beginTransaction();
 
-            if ($request->has('logo')) {
-                $file_name = $this->saveImage($request->logo, 'assets/admin/images/apps');
-                $photoPass = 'assets/admin/images/apps' . $file_name;
-                $Apps->update(['logo' => $photoPass]);
+//
+
+            if ($request->has('logo') ) {
+                $filePath = uploadImage('apps', $request->logo);
+                User::where('id', $id)
+                    ->update([
+                        'logo' => $filePath,
+                    ]);
             }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -178,18 +243,20 @@ class AppsController extends Controller
 
             //////////////////////////////////////////////////////////////////////////////////////////
 
-            DB::beginTransaction();
-            //  return 1;
+//            DB::beginTransaction();
+       //return 1;
 
             $data = $request->except('_token', 'id', 'logo');
 
-            //  return 1;
             $Apps->update(
                 $data
             );
+            $Apps->update(['name'=>$request->full_name]);
+
             // return 1;
 ////////////////////////////////////////////////////////////////////////////////////////
             DB::commit();
+
             return redirect()->route('admin.Apps')->with(['success' => 'تم التحديث بنجاح']);
         } catch (\Exception $exception) {
             return $exception;
@@ -198,8 +265,11 @@ class AppsController extends Controller
         }
 
     }
+
     public function export()
     {
+        if(!checkPermission(7))
+            return view('admin.permission.index');
         return Excel::download(new AppsController(), 'file.xlsx');
     }
 

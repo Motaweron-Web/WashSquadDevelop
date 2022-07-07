@@ -72,7 +72,7 @@
         <div class="burn">
 
             <div class="table-responsive mb-0 rounded">
-                <table id="datatable" class="table  bg-white dt-responsive nowrap">
+                <table id="datatable" class="table  bg-white dt-responsive nowrap" >
                     <thead>
                     <tr>
                         <th> التاريخ </th>
@@ -96,12 +96,12 @@
                         <td> {{$SalaryAndcommission->commencement_date}} </td>
                         <td>  {{$SalaryAndcommission->name}} </td>
 
-                        <td> <input class="form-control" type="number" id="nu1{{$SalaryAndcommission->id}}" value="{{$SalaryAndcommission->salary}}" name="nu1"> </td>
-                        <td> <input class="form-control" type="number" id="nu2{{$SalaryAndcommission->id}}" onchange="calculate({{$SalaryAndcommission->id}})" name="nu2"> </td>
-                        <td> <input class="form-control" type="number" onchange="calculate({{$SalaryAndcommission->id}})" id="nu3{{$SalaryAndcommission->id}}" name="nu3"> </td>
-                        <td> <input class="form-control" type="number" onchange="calculate({{$SalaryAndcommission->id}})" id="nu4{{$SalaryAndcommission->id}}" name="nu4"> </td>
-                        <td> <input class="form-control" type="number" onchange="calculate({{$SalaryAndcommission->id}})" value="0" id="nu5{{$SalaryAndcommission->id}}" name="nu5"> </td>
-                        <td> <input class="form-control" type="number" disabled id="nu6{{$SalaryAndcommission->id}}" name="nu6"> </td>
+                        <td> <input class="form-control" type="number" id="nu1{{$SalaryAndcommission->id}}" value="{{$SalaryAndcommission->salary}}" name="salary"> </td>
+                        <td> <input class="form-control" type="number" id="nu2{{$SalaryAndcommission->id}}" onchange="calculate({{$SalaryAndcommission->id}})" name="discoound" value="{{($SalaryAndcommission->discoound) ??'0'}}">  </td>
+                        <td> <input class="form-control" type="number" onchange="calculate({{$SalaryAndcommission->id}})" id="nu3{{$SalaryAndcommission->id}}" name="borrow" value="{{($SalaryAndcommission->borrow) ??'0'}}"> </td>
+                        <td> <input class="form-control" type="number" onchange="calculate({{$SalaryAndcommission->id}})" id="nu4{{$SalaryAndcommission->id}}" name="absence" value="{{($SalaryAndcommission->absence) ??'0'}}" > </td>
+                        <td> <input class="form-control" type="number" onchange="calculate({{$SalaryAndcommission->id}})" value="{{($SalaryAndcommission->commission) ??'0'}}" id="nu5{{$SalaryAndcommission->id}}" name="commission" > </td>
+                        <td> <input class="form-control" type="number" disabled id="nu6{{$SalaryAndcommission->id}}" name="total" value="{{$SalaryAndcommission->total}}"> </td>
                         @if($SalaryAndcommission->is_confirmed==0)
                             <td style="vertical-align: middle; color: green; font-size: 18px;" id="{{$SalaryAndcommission->id}}">
                             <select class="form-select update_salary" data-id="{{$SalaryAndcommission->id}}" name="is_confirmed" id="update_salary">
@@ -117,7 +117,7 @@
                                     class="fas fa-check-circle"></i> </td>
 
                         @endif
-                        <td> <input class="form-control" type="file" id="" value=""> </td>
+                        <td> <input class="form-control" type="file" id="" value="{{$SalaryAndcommission->invoice}}" name="invoice"> </td>
 
                         <td> <button class="stoped" data-bs-toggle="modal" data-bs-target="#updateEmployee"><i class=" far fa-file-alt me-1"></i> عرض
                                 السجل </button> </td>
@@ -367,14 +367,14 @@
                function calculate(id) {
 
                    var nu1 = $("#nu1"+id).val();
-                   console.log(id)
                    var nu2 = $("#nu2"+id).val();
                    var nu3 = $("#nu3"+id).val();
                    var nu4 = $("#nu4"+id).val();
                    var nu5 = parseInt($("#nu5"+id).val());
                    var total = (nu1) - (nu2) - (nu3) - (nu4);
                    $('#nu6'+id).val(total+nu5);
-                   // $('.result').html(total);
+                   updatesalary,$id
+
                }
 
 

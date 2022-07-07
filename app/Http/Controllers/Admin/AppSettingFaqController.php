@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\File;
 class AppSettingFaqController extends Controller
 {
     public function index(){
+        if(!checkPermission(30))
+            return view('admin.permission.index');
 //return 1;
         $AppSettingFaqs= Question::Selection()->paginate(10);
         return view('admin/AppSettingFaq.index', compact('AppSettingFaqs'));
@@ -20,7 +22,8 @@ class AppSettingFaqController extends Controller
 ##################################==creat==###############################################
 
     public function creat (){
-
+        if(!checkPermission(30))
+            return view('admin.permission.index');
         $AppSettingFaqs=Question::get();
 
         return view('admin.AppSettingFaq.creat',compact('AppSettingFaqs'));
@@ -31,6 +34,8 @@ class AppSettingFaqController extends Controller
     ############################==store==##################################
 
     public function  store(AppSettingFaqRequest $request){
+        if(!checkPermission(30))
+            return view('admin.permission.index');
         // return $request ;
         try {
 
@@ -58,6 +63,8 @@ class AppSettingFaqController extends Controller
 
     public function edit($id)
     {
+        if(!checkPermission(30))
+            return view('admin.permission.index');
         //return 1;
         try {
 
@@ -77,6 +84,8 @@ class AppSettingFaqController extends Controller
 
 
     public function update($id ,AppSettingFaqRequest $request){
+        if(!checkPermission(30))
+            return view('admin.permission.index');
         //  return 1;
 
         try {
@@ -114,6 +123,8 @@ class AppSettingFaqController extends Controller
 
     ###################################==destroy==############################################
     public function destroy($id){
+        if(!checkPermission(30))
+            return view('admin.permission.index');
 
         try {
 

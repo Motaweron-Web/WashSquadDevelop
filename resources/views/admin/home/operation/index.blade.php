@@ -192,7 +192,7 @@
 
 
 
-                        <a  class="deleteorder" orderid="{{$order->id}}"
+                        <a  class="delete-data" orderid="{{$order->id}}"
                             style="cursor: pointer;"> <i class="far fa-trash-alt  px-1 deleteBtn"></i>
                         </a>                        </td>
                 </tr>
@@ -247,7 +247,7 @@
 
 
 
-                        <a  class="deleteorder" orderid="{{$order->id}}"
+                        <a  class="delete-data" orderid="{{$order->id}}"
                             style="cursor: pointer;"> <i class="far fa-trash-alt  px-1 deleteBtn"></i>
                         </a>                        </td>
                 </tr>
@@ -302,7 +302,7 @@
 
 
 
-                            <a  class="deleteorder" orderid="{{$order->id}}"
+                            <a  class="delete-data" orderid="{{$order->id}}"
                                 style="cursor: pointer;"> <i class="far fa-trash-alt  px-1 deleteBtn"></i>
                             </a>                        </td>
                     </tr>
@@ -360,7 +360,7 @@
 
 
 
-                            <a  class="deleteorder" orderid="{{$order->id}}"
+                            <a  class="delete-data" orderid="{{$order->id}}"
                                 style="cursor: pointer;"> <i class="far fa-trash-alt  px-1 deleteBtn"></i>
                             </a>                        </td>
                     </tr>
@@ -417,7 +417,7 @@
 
 
 
-                            <a  class="deleteorder" orderid="{{$order->id}}"
+                            <a  class="delete-data" orderid="{{$order->id}}"
                                 style="cursor: pointer;"> <i class="far fa-trash-alt  px-1 deleteBtn"></i>
                             </a>                        </td>
                     </tr>
@@ -472,7 +472,7 @@
 
 
 
-                            <a  class="deleteorder" orderid="{{$order->id}}"
+                            <a  class="delete-data" orderid="{{$order->id}}"
                                style="cursor: pointer;"> <i class="far fa-trash-alt  px-1 deleteBtn"></i>
                             </a>                        </td>
                     </tr>
@@ -535,7 +535,7 @@
 
 
 
-                                <a  class="deleteorder" orderid="{{$order->id}}"
+                                <a  class="delete-data" orderid="{{$order->id}}"
                                     style="cursor: pointer;"> <i class="far fa-trash-alt  px-1 deleteBtn"></i>
                                 </a>                        </td>
                         </tr>
@@ -600,7 +600,7 @@
 
 
 
-                                <a  class="deleteorder" orderid="{{$order->id}}"
+                                <a  class="delete-data" orderid="{{$order->id}}"
                                     style="cursor: pointer;"> <i class="far fa-trash-alt  px-1 deleteBtn"></i>
                                 </a>                        </td>
                         </tr>
@@ -615,6 +615,30 @@
         </div>
     </div>
 
+
+    <div class="modal " id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">حذف بيانات</h5>
+                    <button type="button" class="close toggle-model" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input id="delete_id" name="id" type="hidden">
+                    <p>هل انت متأكد من حذف البيانات التالية <span id="title" class="text-danger"></span>؟</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="close toggle-model btn-primary" data-dismiss="modal" aria-label="Close">
+                        <span >اغلاق</span>
+                    </button>
+                    <button type="button" class="btn btn-danger" id="delete_btn">حذف !</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- modal -->
@@ -918,18 +942,7 @@
 
 @section('style')
 
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="{{asset('assets/admin/images/favicon.ico')}}">
-    <!-- jvectormap -->
-    <link href="{{asset('assets/admin/libs/jqvmap/jqvmap.min.css')}}" rel="stylesheet" />
-    <!-- Bootstrap Css -->
-    <link href="{{asset('assets/admin/css/bootstrap-rtl.min.css')}}" rel="stylesheet" type="text/css" />
-    <!-- Plugins css -->
-    <link href="{{asset('assets/admin/libs/dropzone/min/dropzone.min.css')}}" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="{{asset('assets/admin/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="{{asset('assets/admin/css/app-rtl.min.css')}}" rel="stylesheet" type="text/css" />
+
 
 @endsection
 
@@ -1329,7 +1342,67 @@
         defer
     ></script>
 
+    <script>
 
 
-@endsection
+        $(document).on("click",".delete-data", function (e) {
+            e.preventDefault();
+            $(function () {
+                $('#delete_modal').modal('show');
+            });
+            var id= $(this).attr('orderid');
+            $('#delete_id').val(id);
+        });
+
+
+
+        $(document).on("click",".toggle-model", function (e) {
+            e.preventDefault();
+            $(function () {
+                $('#delete_modal').modal('toggle');
+            });
+        });
+
+
+        $(document).on("click","#delete_btn", function (e) {
+            e.preventDefault();
+            var id=$('#delete_id').val();
+
+            $.ajax({
+                type:'GET',
+                url:"{{route('deleteorder')}}",
+                data:{
+                    id:id,
+                },
+
+                success:function(res){
+                    if(res['status']==true)
+                    {
+
+                        toastr.success('تمت عملية الحذف بنجاح')
+                        $(`#${id}`).remove();
+
+                        $(function () {
+                            $('#delete_modal').modal('toggle');
+                        });
+
+                    }
+                    else if(res['status']==false)
+                        location.reload();
+
+                    else
+                        location.reload();
+
+                },
+                error: function(data){
+                    location.reload();
+                }
+            });
+
+        });
+    </script>
+    @endsection
+
+
+
 

@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\DB;
 class TermsController extends Controller
 {
     public function index(){
-
+        if(!checkPermission(29))
+            return view('admin.permission.index');
         $AppSettingTermss= SiteText::active()->first();
 
         return view('admin.terms.index', compact('AppSettingTermss'));

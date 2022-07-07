@@ -138,7 +138,7 @@
 
 
                 <div class="col p-2">
-                    <a href="#!" class="block">
+                    <a href="#!" id="status-{{$client->id}}"  @if($client->is_active==1) class="block " @else  class="block disabledEvent"   @endif>
                         <img src="{{asset('assets/admin/images/icons/block.svg')}}" alt="">
                     </a>
                 </div>
@@ -337,7 +337,6 @@
         $('.addToSetting').on('click', function() {
             var discount= $('#vib_discount').val();
 
-
             $.ajax({
                 type:'GET',
                 url:"{{route('admin.change.vipDiscount')}}",
@@ -378,6 +377,7 @@
                     if(res['status']==true)
                     {
                         toastr.success('تم التحديث بنجاح');
+                        $(`#status-${id}`).toggleClass("disabledEvent");
 
                         if(res['data']==0)
                         {

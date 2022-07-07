@@ -16,6 +16,8 @@ class SentServicesController extends Controller
 
     public function index(Request $request)
     {
+        if(!checkPermission(6))
+            return view('admin.permission.index');
 
         $from = date('Y-m').'-01';
         $to = date('Y-m-t');
@@ -49,6 +51,8 @@ class SentServicesController extends Controller
     public function store( SentServicesRequest $request)
 
     {
+        if(!checkPermission(6))
+            return view('admin.permission.index');
       //  return $request;
         if (!$request->has('status'))
             $request->request->add(['status' => 0]);

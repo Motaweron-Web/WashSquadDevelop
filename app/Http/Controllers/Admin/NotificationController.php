@@ -10,7 +10,8 @@ class NotificationController extends Controller
 {
     //
     public  function  getnotification(){
-
+        if(!checkPermission(28))
+            return view('admin.permission.index');
         $notifications=AppNotification::paginate(15);
         return view('admin.home.notification.index',compact('notifications'));
 
@@ -25,13 +26,16 @@ class NotificationController extends Controller
 
     }
     public function createnotification(){
+        if(!checkPermission(28))
+            return view('admin.permission.index');
         return view('admin.home.notification.create');
 
     }
 
 
     public function adminsendnotification(Request $request){
-
+        if(!checkPermission(28))
+            return view('admin.permission.index');
 
         $validator=\Validator::make($request->all(),
             [

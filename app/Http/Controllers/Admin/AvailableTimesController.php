@@ -32,7 +32,6 @@ class AvailableTimesController extends Controller
         $next_year = date('Y', strtotime('+1 year', strtotime($year . '-' . $month . '-01')));
         $next_month = date('m', strtotime('+1 month', strtotime($year . '-' . $month . '-01')));
 
-        ///////////////////////////////// end calender //////////////////////////
 
         return view('admin.available_times.index', compact('start_day',
             'number_of_day', 'prev_year', 'prev_month', 'next_year', 'next_month', 'year', 'month', 'request'));
@@ -57,6 +56,8 @@ class AvailableTimesController extends Controller
         $html = view('admin.available_times.parts.anotherMonth', compact('start_day',
             'number_of_day', 'prev_year', 'prev_month', 'next_year', 'next_month', 'year', 'month', 'request'));
         return response(['html' => "$html", 'status' => 200]);
+
+        return view('admin.available_times.index');
     }
 
     /**

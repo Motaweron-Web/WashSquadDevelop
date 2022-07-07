@@ -17,8 +17,10 @@
                 </ol>
                 <button class="btn btn-dark" onclick="history.back()"> عودة </button>
             </div>
+
             <!-- end breadcrumb -->
             <!-- edit Service -->
+
             @include('admin.alerts.success')
             @include('admin.alerts.errors')
             <!-- edit Service -->
@@ -40,10 +42,11 @@
                                 <input class="form-control" type="number" name="ratio" value="">
                             </div>
                         </div>
+
                         <div class="col-md-6 p-2">
                             <div class="mb-3">
                                 <label class="form-label"> الصورة </label>
-                                <div action="" class="dropzone">
+                                <div action ="" class="dropzone">
                                     <div class="fallback">
                                         <input name="logo" type="file">
                                     </div>
@@ -114,7 +117,7 @@
                         <div class="d-flex align-items-center ">
                             <label class="form-label m-0"> تفعيل الحساب </label>
                             <div class="form-check form-switch ms-3">
-                                <input class="form-check-input" id="wash" type="checkbox" role="switch" checked>
+                                <input class="form-check-input" id="wash" type="checkbox" role="switch" checked  name="is_active">
                             </div>
                         </div>
                         <button type="submit" class="btn orangeBtn"> حفظ و إغلاق </button>
@@ -128,5 +131,11 @@
 @section('js')
 
     <script src="{{asset('assets/admin/libs/dropzone/min/dropzone.min.js')}}"></script>
+    <script>
+
+        @if($errors->any())
+        toastr.error('يرحي التاكد من البيانت المدخلة');
+        @endif
+    </script>
 
 @endsection

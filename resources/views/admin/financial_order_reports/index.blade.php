@@ -133,8 +133,7 @@
                         </tr>
                         </thead>
                         <tbody>
-
-                                                    @foreach($soros->orders as $order)
+                                  @foreach($soros->orders as $order)
                                                 <tr>
                                                     <td>{{$order->id ?? '--'}}</td>
                                                     <td>{{$order->order_date ?? '--'}} </td>

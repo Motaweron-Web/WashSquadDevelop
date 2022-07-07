@@ -21,6 +21,6 @@ public function users(){
     public function ScopeSelection($query){
         return $query->select('id','employ_number','name','commencement_date','status','vacations','salary','commission' ,'id_number','expire_residence',
 
-'phone','absence','job_title','email','contract','ipan','photo','discoound','invoice','borrow','commission');
+'phone','absence','job_title','email','contract','ipan','photo','discoound','invoice','borrow','commission','total');
     }
 }

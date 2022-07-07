@@ -11,11 +11,14 @@ class CarPerformanceController extends Controller
 {
 
     public  function index(){
+        if(!checkPermission(15))
+            return view('admin.permission.index');
         $orders=Order::paginate(15);
         return view('admin.carPerformance.index',compact('orders'));
     }
 public function search(Request $request){
-
+    if(!checkPermission(15))
+        return view('admin.permission.index');
     $ordersByMobile = Order::whereHas('user', function($q) use ($request){
         $q->where('phone','LIKE',"%$request->search%");
     })->paginate(15);
@@ -25,6 +28,8 @@ $search=$request->search;
 
 }
 public function searchByDate(Request $request){
+    if(!checkPermission(15))
+        return view('admin.permission.index');
     $toDate = date("Y-m-d ");
     $fromDate=$request->date;
     $betweenDate = [$fromDate, $toDate];
@@ -34,12 +39,16 @@ public function searchByDate(Request $request){
 
 }
 public function searchByCar(Request $request){
+    if(!checkPermission(15))
+        return view('admin.permission.index');
  $orders=Order::where('driver_id',$request->car)->paginate(15);
  $car=$request->car;
     return view('admin.carPerformance.index',compact('orders','car'));
 
 }
 public  function exportCarPerformance(){
+    if(!checkPermission(15))
+        return view('admin.permission.index');
 
 }
 }

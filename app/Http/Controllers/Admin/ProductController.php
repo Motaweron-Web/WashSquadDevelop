@@ -12,6 +12,8 @@ class ProductController extends Controller
     //
     public  function getproducts()
     {
+        if(!checkPermission(33))
+            return view('admin.permission.index');
         $products=Product::get();
         $categories=Category::get();
         return view('admin.home.products.index',compact('products','categories'));
@@ -19,13 +21,16 @@ class ProductController extends Controller
     }
     public function createproduct()
     {
+        if(!checkPermission(33))
+            return view('admin.permission.index');
       $categories=Category::get();
         return view('admin.home.products.create',compact('categories'));
 
     }
     public function addproduct(Request $request){
 
-
+        if(!checkPermission(33))
+            return view('admin.permission.index');
 
         $validator=\Validator::make($request->all(),
             [
@@ -81,6 +86,7 @@ class ProductController extends Controller
 
 
     public function deleteproduct(Request $request){
+
         $product=Product::find($request->id);
         if($product==null)
             return response()->json(['status' => false]);
@@ -91,6 +97,8 @@ class ProductController extends Controller
     }
 
     public function editproduct($id){
+        if(!checkPermission(33))
+            return view('admin.permission.index');
         $product=Product::find($id);
         $categories=Category::get();
         return view('admin.home.products.update',compact('categories','product'));
@@ -99,7 +107,8 @@ class ProductController extends Controller
 
 public function updateproduct($id,Request $request){
 
-
+    if(!checkPermission(33))
+        return view('admin.permission.index');
     $validator=\Validator::make($request->all(),
         [
             'title_ar'=>'required',
@@ -157,6 +166,8 @@ public function updateproduct($id,Request $request){
 
 }
 public function productsearch(Request $request){
+    if(!checkPermission(33))
+        return view('admin.permission.index');
     $categories=Category::get();
     $searchkey=$request->product;
         if($request->category_id==0){

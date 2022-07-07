@@ -10,6 +10,8 @@ class AdminSupportController extends Controller
 {
 
     public function index(){
+        if(!checkPermission(32))
+            return view('admin.permission.index');
         $AppSettingSupports= Support::all();
 
         return view('admin.support.support', compact('AppSettingSupports'));
@@ -19,6 +21,8 @@ class AdminSupportController extends Controller
 
 ########################################################################################3
     public function update($id ,Request $request){
+        if(!checkPermission(32))
+            return view('admin.permission.index');
         //  return 1;
         try {
 

@@ -10,17 +10,25 @@ use Illuminate\Http\Request;
 class PaymentController extends Controller
 {
     public function getpaymentmethod(){
-       $payments=Payment::paginate(15);
+        if(!checkPermission(26))
+            return view('admin.permission.index');
+
+        $payments=Payment::paginate(15);
         return view('admin.home.payments.index',compact('payments'));
 
     }
     public  function cretepayment(){
+        if(!checkPermission(26))
+            return view('admin.permission.index');
+
         return view('admin.home.payments.create');
 
 
     }
     public function addpayment(Request $request){
 
+        if(!checkPermission(26))
+            return view('admin.permission.index');
 
         $validator=\Validator::make($request->all(),
             [
@@ -88,7 +96,10 @@ public function changepaymentstatus(Request $request){
 
 public function editpayment($id){
 
-        $payment=Payment::find($id);
+    if(!checkPermission(26))
+        return view('admin.permission.index');
+
+    $payment=Payment::find($id);
 
     return view('admin.home.payments.update',compact('payment'));
 
@@ -96,6 +107,9 @@ public function editpayment($id){
 }
 
   public function updatepayment($id,Request $request){
+
+      if(!checkPermission(26))
+          return view('admin.permission.index');
 
       $validator=\Validator::make($request->all(),
           [
@@ -131,13 +145,6 @@ public function editpayment($id){
 
 
   }
-
-
-
-
-
-
-
 
 
 }

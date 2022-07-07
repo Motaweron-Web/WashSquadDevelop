@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CarType;
 use App\Models\Order;
 use App\Models\Place;
+use App\Models\Price;
 use App\Models\Service;
 use App\Models\User;
 use http\Env\Response;
@@ -18,7 +19,8 @@ class OperationController extends Controller
 
     public function getoperation(Request $request)
     {
-
+        if(!checkPermission(8))
+            return view('admin.permission.index');
         if (!$request->has('month') || !$request->has('type') || !in_array($request->type, ['month', 'filter'])) {
             return redirect(route('getoperation') . '?month=' . date('Y-m') . '&type=month');
         }//end fun
@@ -130,13 +132,8 @@ class OperationController extends Controller
     public function searcbymobile(Request $request){
 
 
-
-
-
-
-
-
-
+        if(!checkPermission(8))
+            return view('admin.permission.index');
 
 
         $search=$request->search;
@@ -206,7 +203,12 @@ class OperationController extends Controller
           if ($validator->fails()) {
               return response()->json(['status'=>'error','errors'=>$validator->errors()]);
           }
+          $service=Service::find($request->service_id);
 
+          $car=CarType::find($request->sub_type_id);
+          $price=Price::where('size_id',$car->size)->where('service_id',$request->service_id)->first();
+          $total_price=$price->price??0*$service->count??0;
+          $final_price=$total_price*$request->number_of_cars;
           $order=Order::find($request->id);
           $order->update(
               [
@@ -217,10 +219,12 @@ class OperationController extends Controller
                    'sub_type_id'=>$request->sub_type_id,
                   'service_id'=>$request->service_id,
                   'number_of_cars'=>$request->number_of_cars,
+                  'total_price'=>$final_price,
 
               ]
 
           );
+
           return response()->json(['status'=>true]);
 
 

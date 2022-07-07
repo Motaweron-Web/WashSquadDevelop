@@ -10,7 +10,8 @@ class OnlineStoreCategoriesController extends Controller
 {
     public function index()
     {
-
+        if(!checkPermission(34))
+            return view('admin.permission.index');
         $OnlineStoreCategories = Category::Selection()->paginate(10);
         return view('admin.online_store_categories.index', compact('OnlineStoreCategories'));
 
@@ -18,6 +19,8 @@ class OnlineStoreCategoriesController extends Controller
 
     public function creat()
     {
+        if(!checkPermission(34))
+            return view('admin.permission.index');
         //return 1;
 
         $OnlineStoreCategories = Category::get();
@@ -27,6 +30,8 @@ class OnlineStoreCategoriesController extends Controller
 
 
     public function  store(Request $request){
+        if(!checkPermission(34))
+            return view('admin.permission.index');
         // return $request ;
         $validator=\Validator::make($request->all(),
             [
@@ -63,6 +68,8 @@ class OnlineStoreCategoriesController extends Controller
 
     public function edit($id)
     {
+        if(!checkPermission(34))
+            return view('admin.permission.index');
         //return 1;
         try {
 
@@ -84,7 +91,8 @@ class OnlineStoreCategoriesController extends Controller
 
     public function update($id ,Request $request){
         //  return 1;
-
+        if(!checkPermission(34))
+            return view('admin.permission.index');
         try {
 
             $OnlineStoreCategories=Category::Selection()->find($id);
@@ -120,7 +128,8 @@ class OnlineStoreCategoriesController extends Controller
 
     ###################################==destroy==############################################
     public function destroy($id){
-
+        if(!checkPermission(34))
+            return view('admin.permission.index');
         try {
 
 

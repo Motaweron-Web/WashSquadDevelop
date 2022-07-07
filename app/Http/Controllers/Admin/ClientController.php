@@ -14,11 +14,15 @@ use Illuminate\Http\Request;
 class ClientController extends Controller
 {
      public  function  getClients(){
+         if(!checkPermission(16))
+             return view('admin.permission.index');
          $clients=User::paginate(15);
          $places=Place::get();
          return view('admin.client.index',compact('clients','places'));
      }
      public function profile($id){
+         if(!checkPermission(16))
+             return view('admin.permission.index');
          $client=User::find($id);
          $orders=$client->orders;
          $total_price=0;
@@ -30,6 +34,8 @@ class ClientController extends Controller
 
      }
      public function filterProfileByDate( Request $request,$id){
+         if(!checkPermission(16))
+             return view('admin.permission.index');
          $client=User::find($id);
          $total_price=0;
          foreach ($client->orders as $order)
@@ -91,13 +97,22 @@ class ClientController extends Controller
          $setting=Setting::first();
          if($setting==null)
              return response()->json(['status'=>false]);
-            $setting->vip_discount=$request->discount;
+         if($request->discount>100)
+         {
+             $setting->vip_discount=100;
+
+         }
+         else {
+             $setting->vip_discount = $request->discount;
+         }
             $setting->save();
             return response()->json(['status'=>true]);
 
 
      }
      public function getClientsByFilter($key){
+         if(!checkPermission(16))
+             return view('admin.permission.index');
          $places=Place::get();
 
          if($key=='vip'){
@@ -130,6 +145,8 @@ class ClientController extends Controller
 
      }
      public function searchByMobile(Request $request){
+         if(!checkPermission(16))
+             return view('admin.permission.index');
          $places=Place::get();
          $clients=User::where('phone','like',"%$request->search%")->paginate(15);
          $search=$request->search;
@@ -137,7 +154,8 @@ class ClientController extends Controller
 
      }
      public function searchByPlace(Request $request){
-
+         if(!checkPermission(16))
+             return view('admin.permission.index');
          $places=Place::get();
          $clients=User::where('place_id',$request->region)->paginate(15);
          $region=$request->region;
@@ -146,6 +164,8 @@ class ClientController extends Controller
 
      }
      public function searchByDate(Request $request){
+         if(!checkPermission(16))
+             return view('admin.permission.index');
          $toDate = date("Y-m-d h:i:s");
          $fromDate=$request->date;
          $betweenDate = [$fromDate, $toDate];
@@ -156,7 +176,8 @@ class ClientController extends Controller
          return view('admin.client.index',compact('clients','date','places'));
      }
      public function searchByCountOrder( Request $request){
-
+         if(!checkPermission(16))
+             return view('admin.permission.index');
             $ides=[];
          $places=Place::get();
          $clients=User::get();
@@ -176,6 +197,8 @@ class ClientController extends Controller
 
      }
      public function searchByService(Request $request){
+         if(!checkPermission(16))
+             return view('admin.permission.index');
          $places=Place::get();
          $clients = User::whereHas('orders', function($q) use ($request){
              $q->where('service_id',$request->service);
@@ -185,6 +208,8 @@ class ClientController extends Controller
 
      }
      public function clientSearchByPayment(Request $request){
+         if(!checkPermission(16))
+             return view('admin.permission.index');
          $places=Place::get();
          $clients = User::whereHas('orders', function($q) use ($request){
              $q->where('payment_method',$request->payment);
@@ -230,7 +255,12 @@ class ClientController extends Controller
              return response()->json(['status'=>false]);
 
          }
-         $client->one_time_discount_rate +=$request->percentage;
+         if($request->percentage>100){
+             $client->one_time_discount_rate = 100;
+         }
+         else {
+             $client->one_time_discount_rate = $request->percentage;
+         }
          $client->save();
          return  response()->json(['status'=>true]);
      }

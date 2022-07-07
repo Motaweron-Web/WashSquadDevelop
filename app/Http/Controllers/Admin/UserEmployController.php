@@ -15,6 +15,8 @@ class UserEmployController extends Controller
     use PhotoTrait;
     public function index()
     {
+        if(!checkPermission(10))
+            return view('admin.permission.index');
         $UserEmploys = UserEmploy::Selection()->paginate(10);
         return view('admin.UserEmploy.index', compact('UserEmploys'));
 
@@ -25,6 +27,8 @@ class UserEmployController extends Controller
     ///
     ///
     public function store(Request $request){
+        if(!checkPermission(10))
+            return view('admin.permission.index');
    // return $request;
         $validator=\Validator::make($request->all(),
             [
@@ -93,7 +97,8 @@ class UserEmployController extends Controller
 
     }
 public function update($id,Request $request){
-
+    if(!checkPermission(10))
+        return view('admin.permission.index');
 // return $request;
   try {
 
@@ -141,7 +146,8 @@ public function update($id,Request $request){
 
 
     public function pdf()
-    {
+    {   if(!checkPermission(10))
+        return view('admin.permission.index');
         $data = UserEmploy::get()->all();
         $pdf = PDF::loadView('UserEmploy.index', ['data'=>$data]);
         return $pdf->stream('form.pdf');

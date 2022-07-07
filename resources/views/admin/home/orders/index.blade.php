@@ -24,8 +24,8 @@
 
                 </div>
                 <div class="p-2">
-                    <a href="javascript:genScreenshot()" class="btn  exportExcel"> <i class="fas fa-download me-2"></i> Export PDF
-                    </a>
+                    <button onclick="convert()" href="javascript:genScreenshot()" class="btn  exportExcel"> <i class="fas fa-download me-2"></i> Export PDF
+                    </button>
                 </div>
             </div>
 
@@ -60,11 +60,11 @@
                             </div>
                         </div>
                         <div class="car-details d-flex align-items-center justify-content-center">
-                            <h6 class=" px-2 d-inline-block"> {{$order->service->ar_title}} </h6>
+                            <h6 class=" px-2 d-inline-block"> {{$order->service->ar_title??''}} </h6>
 
                         </div>
                         <div class="gps py-2">
-                            <h6 class="text-center"> {{$order->place->group->name ??''}} :{{$order->place->ar_name}} </h6>
+                            <h6 class="text-center"> {{$order->place->group->name ??''}} :{{$order->place->ar_name??''}} </h6>
                         </div>
                     </div>
                 </div>
@@ -241,7 +241,9 @@
 
             <script>
 
-
+                function convert(){
+                    window.print();
+                }
                 $('#changeFilter').on('change',function(){
                     var val = $(this).val();
                     var myUrl = "{{route('getdriverorder')}}?month={{date('Y-m')}}&type=filter&filter="+val

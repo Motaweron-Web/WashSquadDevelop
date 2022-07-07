@@ -60,6 +60,20 @@ return [
             'url' => env('APP_URL').'/public',
             'visibility' => 'public',
         ],
+        'apps'=>[
+            'driver' => 'local',
+            'root' => base_path().'/public/assets/images/apps/',
+            'url' => env('APP_URL').'/public',
+            'visibility' => 'public',
+        ],
+
+        'invoice'=>[
+            'driver' => 'local',
+            'root' => base_path().'/public/assets/images/invoice/',
+            'url' => env('APP_URL').'/public',
+            'visibility' => 'public',
+        ],
+
 
         's3' => [
             'driver' => 's3',

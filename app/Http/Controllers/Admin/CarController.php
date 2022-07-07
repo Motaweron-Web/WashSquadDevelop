@@ -11,15 +11,21 @@ class CarController extends Controller
 {
     //
     public  function getcartype(){
+        if(!checkPermission(23))
+            return view('admin.permission.index');
          $cartypes=CarType::where('level',1)->paginate(15);
         return view('admin.home.car.main',compact('cartypes'));
     }
     public function createmaincar()
     {
+        if(!checkPermission(23))
+            return view('admin.permission.index');
         return view('admin.home.car.create');
 
     }
     public function addmaincar(Request $request){
+        if(!checkPermission(23))
+            return view('admin.permission.index');
         $validator=\Validator::make($request->all(),
             [
                 'ar_title'=>'required|string',
@@ -47,6 +53,8 @@ class CarController extends Controller
 
     }
     public function updatemaincar($id,Request $request){
+        if(!checkPermission(23))
+            return view('admin.permission.index');
         $validator=\Validator::make($request->all(),
             [
                 'ar_title'=>'required|string',
@@ -78,12 +86,16 @@ class CarController extends Controller
 
 
     public function getsubcartype(){
+        if(!checkPermission(24))
+            return view('admin.permission.index');
         $cartypes=CarType::with('parent')->where('level',2)->paginate(15);
         return view('admin.home.car.sub.index',compact('cartypes'));
     }
 
 
     public function createsubtypecar(){
+        if(!checkPermission(24))
+            return view('admin.permission.index');
         $maincars=CarType::where('level',1)->get();
       $sizes=CarSize::get();
         return view('admin.home.car.sub.create',compact('maincars','sizes'));
@@ -91,6 +103,8 @@ class CarController extends Controller
     }
 
     public function addsubtypecar(Request $request){
+        if(!checkPermission(24))
+            return view('admin.permission.index');
         $validator=\Validator::make($request->all(),
             [
                 'ar_title'=>'required|string',
@@ -114,6 +128,8 @@ class CarController extends Controller
 
     }
   public function  editsubcar($id){
+      if(!checkPermission(24))
+          return view('admin.permission.index');
         $car=CarType::find($id);
       $maincars=CarType::where('level',1)->get();
       $sizes=CarSize::get();
@@ -121,6 +137,8 @@ class CarController extends Controller
 
   }
   public function updatesubcar($id,Request $request){
+      if(!checkPermission(24))
+          return view('admin.permission.index');
       $validator=\Validator::make($request->all(),
           [
               'ar_title'=>'required|string',
