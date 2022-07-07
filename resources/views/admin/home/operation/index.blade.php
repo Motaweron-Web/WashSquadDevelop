@@ -71,7 +71,7 @@
     <div class="gps">
         <h4 class="operation-head"> خريطة الطلبات </h4>
         <div  width="100%" height="300px" style="border:0;">
-            <div id="map" style="position:unset !important"></div>
+            <div id="mapId" style="position:unset !important"></div>
         </div>
 
     </div>
@@ -1276,7 +1276,7 @@
         function initMap() {
             var center = {lat: parseFloat({{$bigArray[0]['lat']}}), lng: parseFloat({{$bigArray[0]['lng']}})};
             var latLongArray = {!! json_encode($bigArray) !!};
-            map = new google.maps.Map(document.getElementById("map"), {
+            map = new google.maps.Map(document.getElementById("mapId"), {
                 zoom: 15,
                 center: center,
             });
