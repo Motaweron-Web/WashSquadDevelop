@@ -57,7 +57,6 @@ class AvailableTimesController extends Controller
             'number_of_day', 'prev_year', 'prev_month', 'next_year', 'next_month', 'year', 'month', 'request'));
         return response(['html' => "$html", 'status' => 200]);
 
-        return view('admin.available_times.index');
     }
 
     /**
