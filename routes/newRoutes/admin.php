@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 
 ////////////////////////  الأوقات المتاحه //////////////////////
 Route::resource('available-times', 'AvailableTimesController');
+Route::get('available-times-anotherMonth', 'AvailableTimesController@anotherMonth')->name('available-times.anotherMonth.index');
 
 /////////////////// الإشتراكات الشهرية //////////////////////
 Route::resource('monthly-subscription', 'MonthlySubscriptionController');

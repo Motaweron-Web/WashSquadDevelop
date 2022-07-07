@@ -176,448 +176,59 @@
             </button>
         </div>
         <div class="d-flex flex-wrap justify-content-end align-items-center mb-3">
-            <div class=" p-2  hints ">
-                <span class="px-2 py-1"> جدولة <i class="scheduling fas fa-circle ps-1"></i> </span>
-                <span class="px-2 py-1"> غير متاح <i class="unavailableTime fas fa-circle ps-1"></i>
-                                </span>
-                <span class="px-2 py-1"> متاح <i class="availableTime fas fa-circle ps-1"></i> </span>
-
-            </div>
-
-            <div class="p-2">
-                <select class="form-select shadow-lg">
-                    <option selected> January </option>
-                    <option value="1"> February </option>
-                    <option value="2"> March </option>
-                    <option value="3"> April </option>
-                </select>
-            </div>
-            <div class="p-2">
-                <select class="form-select shadow-lg">
-                    <option selected>2022</option>
-                    <option value="1">2021</option>
-                    <option value="2">2020</option>
-                    <option value="3">2019</option>
-                </select>
+            <div class=" p-1 p-xl-2">
+                <input type="month" class="form-control" id="choseMonth" value="{{date('Y-m',strtotime($year.'-'.$month))}}">
             </div>
         </div>
     </div>
 
     <div class="container">
+        <div class="calendarHead">
+            <div class="day">Sat</div>
+            <div class="day">Fri</div>
+            <div class="day">Thu</div>
+            <div class="day">Wed</div>
+            <div class="day">Tue</div>
+            <div class="day">Mon</div>
+
+            <div class="day">Sun</div>
+        </div>
         <div class="calender ">
 
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="{{asset('assets/admin/images/icons/2.png')}}"> غسيل </span>
-                        <span class="unavailableTime"> <img src="{{asset('assets/admin/images/icons/3.png')}}"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="{{asset('assets/admin/images/icons/5.png')}}"> تعقيم </span>
-                        <span class="scheduling"> <img src="{{asset('assets/admin/images/icons/4.png')}}"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
+            <?php
+            $i = 1;
+            $flag = 0;
+            while ($i <= $number_of_day) {
+                for($j=1 ; $j<=7 ; $j++){
+                    if($i > $number_of_day)
+                        break;
 
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
+                    if($flag) {
+                        if ($year . '-' . $month . '-' . $i == date('Y') . '-' . date('m') . '-' . (int)date('d'))
+                            include(resource_path('views/admin/available_times/parts/toDay.php'));
+                        else
+                            include(resource_path('views/admin/available_times/parts/day.php'));
 
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
+                        $i++;
+                    }elseif($j == $start_day){
+                        if($year.'-'.$month.'-'.$i == date('Y').'-'.date('m').'-'.(int)date('d'))
+                            include(resource_path('views/admin/available_times/parts/toDay.php'));
+                        else
+                            include(resource_path('views/admin/available_times/parts/day.php'));
 
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
+                        $flag = 1;
+                        $i++;
+                        continue;
+                    }
+                    else {
+                        include(resource_path('views/admin/available_times/parts/prevMonth.php'));
+                    }
 
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
-            <div id="btn-new-event" data-bs-toggle="modal" data-bs-target="#event-modal"
-                 class=" p-1 p-xl-2">
-                <div class="day-div p-2">
-                    <div class=" p-2 pb-4 "> 1 </div>
-                    <div class="todo-func">
-                        <span class="availableTime"> <img src="assets/images/icons/2.png"> غسيل </span>
-                        <span class="unavailableTime"> <img src="assets/images/icons/3.png"> تلميع
-                                        </span>
-                        <span class="scheduling"> <img src="assets/images/icons/5.png"> تعقيم </span>
-                        <span class="scheduling"> <img src="assets/images/icons/4.png"> اشتراك </span>
-                    </div>
-                </div>
-            </div>
+                }
+            }
+            ?>
+        </div>
+        <div id="loadData">
 
         </div>
     </div>
@@ -681,4 +292,24 @@
         <!-- end modal dialog-->
     </div>
     <!-- end modal-->
+@endsection
+@section('js')
+    @include('admin.available_times.assets.js')
+    {{--    <!-- Required datatable js -->--}}
+    {{--    <script src="{{url('assets/admin')}}/libs/datatables.net/js/jquery.dataTables.min.js"></script>--}}
+    {{--    <script src="{{url('assets/admin')}}/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>--}}
+    {{--    <!-- Buttons examples -->--}}
+    {{--    <script src="{{url('assets/admin')}}/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>--}}
+    {{--    <script src="{{url('assets/admin')}}/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>--}}
+    {{--    <script src="{{url('assets/admin')}}/libs/jszip/jszip.min.js"></script>--}}
+    {{--    <script src="{{url('assets/admin')}}/libs/pdfmake/build/pdfmake.min.js"></script>--}}
+    {{--    <script src="{{url('assets/admin')}}/libs/pdfmake/build/vfs_fonts.js"></script>--}}
+    {{--    <script src="{{url('assets/admin')}}/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>--}}
+    {{--    <script src="{{url('assets/admin')}}/libs/datatables.net-buttons/js/buttons.print.min.js"></script>--}}
+    {{--    <script src="{{url('assets/admin')}}/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>--}}
+    {{--    <!-- Responsive examples -->--}}
+    {{--    <script src="{{url('assets/admin')}}/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>--}}
+    {{--    <script src="{{url('assets/admin')}}/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>--}}
+    {{--    <!-- Datatable init js -->--}}
+    {{--    <script src="{{url('assets/admin')}}/js/pages/datatables.init.js"></script>--}}
 @endsection
